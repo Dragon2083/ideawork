@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.lagyuihotle.dao.RoomdataDao">
+  <resultMap id="BaseResultMap" type="com.example.lagyuihotle.pojo.entity.Roomdata">
+    <id column="roomid" jdbcType="INTEGER" property="roomid" />
+    <result column="rname" jdbcType="INTEGER" property="rname" />
+    <result column="rstate" jdbcType="VARCHAR" property="rstate" />
+    <result column="rprice" jdbcType="DOUBLE" property="rprice" />
+    <result column="ruseable" jdbcType="TINYINT" property="ruseable" />
+    <result column="rtype" jdbcType="INTEGER" property="rtype" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    roomid, rname, rstate, rprice, ruseable, rtype
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from roomdata
+    where roomid = #{roomid,jdbcType=INTEGER}
+  </select>
+  <select id="allRoomdata" resultType="com.example.lagyuihotle.pojo.entity.Roomdata">
+    select
+    <include refid="Base_Column_List" />
+    from roomdata
+    <where>
+      <if test="rname!=null">
+        rname = #{rname,jdbcType=INTEGER}
+      </if>
+
+      <if test="rstate!=null">
+        and  rstate = #{rstate,jdbcType=VARCHAR}
+      </if>
+
+      <if test="rtype!=null">
+        and  rtype = #{rtype,jdbcType=INTEGER}
+      </if>
+    </where>
+  </select>
+  <select id="selectrstate" resultType="java.lang.Integer">
+    select count(*) from roomdata where rstate = #{state,jdbcType=VARCHAR}
+  </select>
+  <select id="selecttypecount" resultType="java.lang.Integer">
+    select  count(*) from roomdata where rtype = #{rtype,jdbcType=INTEGER} and rstate='可用'
+  </select>
+  <select id="selectbytype" resultType="com.example.lagyuihotle.pojo.entity.Roomdata">
+      select <include refid="Base_Column_List" /> from roomdata where rtype = #{rtype,jdbcType=INTEGER} and  rstate='可用'
+    </select>
+  <select id="selectuseroom" resultType="com.example.lagyuihotle.pojo.entity.Roomdata">
+    SELECT  <include refid="Base_Column_List" />  FROM roomdata WHERE roomdata.rname!= ALL(SELECT record.rnumber FROM record WHERE record.useable = 1)AND roomdata.rtype = #{rtype,jdbcType=INTEGER} AND roomdata.rstate='可用'
+  </select>
+  <select id="selectreservation" resultType="com.example.lagyuihotle.pojo.entity.Roomdata">
+    SELECT DISTINCT <include refid="Base_Column_List" /> FROM record,roomdata WHERE roomdata.rname = ANY(SELECT record.rnumber FROM record WHERE record.useable = 1 AND (record.checkindate > #{rec.checkoutdate,jdbcType=TIMESTAMP} or #{rec.checkindate,jdbcType=TIMESTAMP} > record.checkoutdate  )) AND roomdata.rtype = #{rtype,jdbcType=INTEGER} AND roomdata.rstate = '可用';
+  </select>
+    <select id="selectpricebyrname" resultType="java.lang.Integer">
+      select rprice from roomdata where rname = #{rname,jdbcType=INTEGER}
+    </select>
+    <select id="roombystate" resultType="com.example.lagyuihotle.pojo.entity.Roomdata">
+      select
+      <include refid="Base_Column_List" />
+      from roomdata where rstate != '可用'
+    </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from roomdata
+    where roomid = #{roomid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="roomid" keyProperty="roomid" parameterType="com.example.lagyuihotle.pojo.entity.Roomdata" useGeneratedKeys="true">
+    insert into roomdata (rname, rstate, rprice, 
+      ruseable, rtype)
+    values (#{rname,jdbcType=INTEGER}, #{rstate,jdbcType=VARCHAR}, #{rprice,jdbcType=DOUBLE}, 
+      #{ruseable,jdbcType=TINYINT}, #{rtype,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="roomid" keyProperty="roomid" parameterType="com.example.lagyuihotle.pojo.entity.Roomdata" useGeneratedKeys="true">
+    insert into roomdata
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="rname != null">
+        rname,
+      </if>
+      <if test="rstate != null">
+        rstate,
+      </if>
+      <if test="rprice != null">
+        rprice,
+      </if>
+      <if test="ruseable != null">
+        ruseable,
+      </if>
+      <if test="rtype != null">
+        rtype,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="rname != null">
+        #{rname,jdbcType=INTEGER},
+      </if>
+      <if test="rstate != null">
+        #{rstate,jdbcType=VARCHAR},
+      </if>
+      <if test="rprice != null">
+        #{rprice,jdbcType=DOUBLE},
+      </if>
+      <if test="ruseable != null">
+        #{ruseable,jdbcType=TINYINT},
+      </if>
+      <if test="rtype != null">
+        #{rtype,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.lagyuihotle.pojo.entity.Roomdata">
+    update roomdata
+    <set>
+      <if test="rname != null">
+        rname = #{rname,jdbcType=INTEGER},
+      </if>
+      <if test="rstate != null">
+        rstate = #{rstate,jdbcType=VARCHAR},
+      </if>
+      <if test="rprice != null">
+        rprice = #{rprice,jdbcType=DOUBLE},
+      </if>
+      <if test="ruseable != null">
+        ruseable = #{ruseable,jdbcType=TINYINT},
+      </if>
+      <if test="rtype != null">
+        rtype = #{rtype,jdbcType=INTEGER},
+      </if>
+    </set>
+    where roomid = #{roomid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.lagyuihotle.pojo.entity.Roomdata">
+    update roomdata
+    set rname = #{rname,jdbcType=INTEGER},
+      rstate = #{rstate,jdbcType=VARCHAR},
+      rprice = #{rprice,jdbcType=DOUBLE},
+      ruseable = #{ruseable,jdbcType=TINYINT},
+      rtype = #{rtype,jdbcType=INTEGER}
+    where roomid = #{roomid,jdbcType=INTEGER}
+  </update>
+</mapper>

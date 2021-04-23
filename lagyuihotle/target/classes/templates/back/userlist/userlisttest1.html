@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th ="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet"  th:href="@{layui/css/layui.css}" media="all">
+		<script th:src="@{layui/layui.js}" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="layui-fluid">
+			<div class="layui-card-header"></div>
+			<form class="layui-form" >
+				<div style="width: 15.625rem;">
+					<div class="layui-form-item">
+						<label class="layui-form-label">职业</label>
+						<div class="layui-input-block">
+							<select name="city" lay-verify="required">
+								<option value=""></option>
+								<option value="0">北京</option>
+								<option value="1">上海</option>
+								<option value="2">广州</option>
+							</select>
+						</div>
+					</div>
+				<!--	<div><table id="demo" lay-filter="test"></table></div> -->
+					<table class="layui-table"
+						lay-data="{width:670 , height:330,url:'/back/userlist', id:'idTest'}"
+						lay-filter="demo">
+						<thead>
+							<tr>
+								<th lay-data="{type:'checkbox', fixed: 'left'}"></th>
+								<th lay-data="{field:'uname', width:120}">用户名</th>
+								<th lay-data="{field:'idcard', width:120}">账号</th>
+								<th lay-data="{field:'phone', width:160}">手机</th>
+								<th lay-data="{field:'category', width:120}">职业</th>
+								<th lay-data="{fixed: 'right', width:150, align:'center', toolbar: '#barDemo'}"></th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+			</form>
+        </div>
+			<script type="text/html" id="barDemo">
+				<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+				<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+			</script>
+
+			<script>
+				layui.use('form', function() {
+					var form = layui.form;
+
+				});
+				layui.use('table', function() {
+					var table = layui.table;
+
+				});
+			</script>
+	</body>
+
+</html>

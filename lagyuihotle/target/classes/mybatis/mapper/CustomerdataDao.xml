@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.lagyuihotle.dao.CustomerdataDao">
+  <resultMap id="BaseResultMap" type="com.example.lagyuihotle.pojo.entity.Customerdata">
+    <id column="cid" jdbcType="INTEGER" property="cid" />
+    <result column="account" jdbcType="VARCHAR" property="account" />
+    <result column="cpsw" jdbcType="VARCHAR" property="cpsw" />
+    <result column="cname" jdbcType="VARCHAR" property="cname" />
+    <result column="gender" jdbcType="VARCHAR" property="gender" />
+    <result column="registerdate" jdbcType="TIMESTAMP" property="registerdate" />
+    <result column="cphone" jdbcType="VARCHAR" property="cphone" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    cid, account, cpsw, cname, gender, registerdate, cphone
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from customerdata
+    where cid = #{cid,jdbcType=INTEGER}
+  </select>
+  <select id="allcustomer" resultType="com.example.lagyuihotle.pojo.entity.Customerdata">
+    select
+    <include refid="Base_Column_List" />
+    from customerdata
+  </select>
+    <select id="selectBykey" resultType="com.example.lagyuihotle.pojo.entity.Customerdata">
+      select
+      <include refid="Base_Column_List" />
+      from customerdata
+      where account = #{account,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from customerdata
+    where cid = #{cid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="cid" keyProperty="cid" parameterType="com.example.lagyuihotle.pojo.entity.Customerdata" useGeneratedKeys="true">
+    insert into customerdata (account, cpsw, cname, 
+      gender, registerdate, cphone
+      )
+    values (#{account,jdbcType=VARCHAR}, #{cpsw,jdbcType=VARCHAR}, #{cname,jdbcType=VARCHAR}, 
+      #{gender,jdbcType=VARCHAR}, #{registerdate,jdbcType=TIMESTAMP}, #{cphone,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="cid" keyProperty="cid" parameterType="com.example.lagyuihotle.pojo.entity.Customerdata" useGeneratedKeys="true">
+    insert into customerdata
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="account != null">
+        account,
+      </if>
+      <if test="cpsw != null">
+        cpsw,
+      </if>
+      <if test="cname != null">
+        cname,
+      </if>
+      <if test="gender != null">
+        gender,
+      </if>
+      <if test="registerdate != null">
+        registerdate,
+      </if>
+      <if test="cphone != null">
+        cphone,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="account != null">
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="cpsw != null">
+        #{cpsw,jdbcType=VARCHAR},
+      </if>
+      <if test="cname != null">
+        #{cname,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="registerdate != null">
+        #{registerdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cphone != null">
+        #{cphone,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.lagyuihotle.pojo.entity.Customerdata">
+    update customerdata
+    <set>
+      <if test="account != null">
+        account = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="cpsw != null">
+        cpsw = #{cpsw,jdbcType=VARCHAR},
+      </if>
+      <if test="cname != null">
+        cname = #{cname,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="registerdate != null">
+        registerdate = #{registerdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cphone != null">
+        cphone = #{cphone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where cid = #{cid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.lagyuihotle.pojo.entity.Customerdata">
+    update customerdata
+    set account = #{account,jdbcType=VARCHAR},
+      cpsw = #{cpsw,jdbcType=VARCHAR},
+      cname = #{cname,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=VARCHAR},
+      registerdate = #{registerdate,jdbcType=TIMESTAMP},
+      cphone = #{cphone,jdbcType=VARCHAR}
+    where cid = #{cid,jdbcType=INTEGER}
+  </update>
+</mapper>

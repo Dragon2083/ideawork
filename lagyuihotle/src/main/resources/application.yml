@@ -1,0 +1,20 @@
+server:
+  port: 8080  #当前端口
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/hotel_data?characterEncoding=UTF-8&amp;serverTimezone=GMT
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource #连接池类型
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true #数据库中的下划线转换为驼峰
+  mapper-locations: classpath:mybatis/mapper/**/*.xml #mapper文件路
+#pagehelper
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+  page-size-zero: true

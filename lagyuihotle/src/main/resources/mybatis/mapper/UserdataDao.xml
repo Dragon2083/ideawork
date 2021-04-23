@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.lagyuihotle.dao.UserdataDao">
+  <resultMap id="BaseResultMap" type="com.example.lagyuihotle.pojo.entity.Userdata">
+    <id column="idcard" jdbcType="VARCHAR" property="idcard" />
+    <result column="uname" jdbcType="VARCHAR" property="uname" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="psw" jdbcType="VARCHAR" property="psw" />
+    <result column="category" jdbcType="INTEGER" property="category" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    idcard, uname, phone, psw, category
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from userdata
+    where idcard = #{idcard,jdbcType=VARCHAR}
+  </select>
+    <select id="allUserData" resultType="com.example.lagyuihotle.pojo.entity.Userdata">
+      select
+      <include refid="Base_Column_List" />
+        from userdata
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from userdata
+    where idcard = #{idcard,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" keyColumn="idcard" keyProperty="idcard" parameterType="com.example.lagyuihotle.pojo.entity.Userdata" useGeneratedKeys="true">
+    insert into userdata (uname, phone, psw, 
+      category)
+    values (#{uname,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{psw,jdbcType=VARCHAR}, 
+      #{category,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="idcard" keyProperty="idcard" parameterType="com.example.lagyuihotle.pojo.entity.Userdata" >
+    insert into userdata
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="idcard != null">
+      idcard,
+      </if>
+      <if test="uname != null">
+        uname,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="psw != null">
+        psw,
+      </if>
+      <if test="category != null">
+        category,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="idcard != null">
+        #{idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="uname != null">
+        #{uname,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="psw != null">
+        #{psw,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        #{category,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.lagyuihotle.pojo.entity.Userdata">
+    update userdata
+    <set>
+      <if test="uname != null">
+        uname = #{uname,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="psw != null">
+        psw = #{psw,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        category = #{category,jdbcType=INTEGER},
+      </if>
+    </set>
+    where idcard = #{idcard,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.lagyuihotle.pojo.entity.Userdata">
+    update userdata
+    set uname = #{uname,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      psw = #{psw,jdbcType=VARCHAR},
+      category = #{category,jdbcType=INTEGER}
+    where idcard = #{idcard,jdbcType=VARCHAR}
+  </update>
+</mapper>

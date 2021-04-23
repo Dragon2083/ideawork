@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+    <!-- 引入 echarts.js -->
+    <script th:src="@{/js/echarts.min.js}"></script>
+</head>
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div style="margin-left:2%; margin-top: 2%">
+    <div id="main" style="width: 600px;height:400px;"></div>
+    </div>
+    <script th:inline="javascript" >
+        // 基于准备好的dom，初始化echarts实例
+		var chartDom = document.getElementById('main');
+		var myChart = echarts.init(chartDom);
+        // 指定图表的配置项和数据
+        let states = [[${states}]];
+        let state = states;
+        var option = {
+            title: {
+                   text: '房间状态统计饼图',
+                   //subtext: '',
+                   left: 'center'
+               },
+               tooltip: {
+                   trigger: 'item'
+               },
+               legend: {
+                   orient: 'vertical',
+                   left: 'left',
+               },
+               series: [
+                   {
+                       type: 'pie',
+                       radius: '50%',
+                       data: [
+                           {value:state[0], name: '可用'},
+                           {value: state[1], name: '停用'},
+                           {value: state[3], name: '待维修'},
+                           {value:state[2], name:"待清洁"}
+                       ],
+                       emphasis: {
+                           itemStyle: {
+                               shadowBlur: 10,
+                               shadowOffsetX: 0,
+                               shadowColor: 'rgba(0, 0, 0, 0.5)'
+                           }
+                       }
+                   }
+               ]
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
+</body>
+</html>
