@@ -11,6 +11,43 @@
 
 	<body>
 	<button type="button" class="layui-btn layui-btn-normal" onclick="insertroom()" style="margin-left: 20px;margin-top: 20px" >添加房间</button>
+	<!--搜索-->
+	<div style="margin-top: 1%">
+		<form class="layui-form" >
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label">账号</label>
+					<div class="layui-input-block" style="width: 200px">
+						<input type="text" name="account"  placeholder="输入账号"  class="layui-input">
+					</div>
+				</div>
+
+				<div class="layui-inline">
+					<label class="layui-form-label">顾客姓名</label>
+					<div class="layui-input-block" style="width: 200px">
+						<input type="text" name="cname"  placeholder="输入顾客姓名"  class="layui-input">
+					</div>
+				</div>
+
+				<div class="layui-inline">
+					<label class="layui-form-label">性别</label>
+					<div class="layui-input-block" style="width:200px">
+						<select name="gender" lay-filter="required">
+							<option></option>
+							<option value="男">男</option>
+							<option value="女">女</option>
+						</select>
+					</div>
+				</div>
+				<div class="layui-inline">
+					<button type="button" class="layui-btn layui-bg-red" lay-submit lay-filter="recordsearch">
+						<i class="layui-icon layui-icon-search" style="font-size: 30px; color:white;" ></i>
+					</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<!--表格-->
 	<div style="margin-left: 2%">
 	<table id="demo" name="roomlist" lay-filter="rooms"></table>
 	</div>
@@ -19,6 +56,7 @@
 		<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
 		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 	</script>
+    <script th:src="@{/layui/layui.js}" charset="utf-8"></script>
 	<script>
 
 		var insertroom = function(){
@@ -39,19 +77,14 @@
 		}
 
 
-		layui.use('form', function() {
-			var form = layui.form;
-
-		});
-
-				layui.use('table', function() {
+				layui.use(['table','layer','form'], function() {
 					var table = layui.table;
 					var layer = layui.layer;
+                    var form = layui.form;
 					table.render({
-						elem: '#demo' //指定原始表格元素选择器（推荐id选择器）
-						,height: 900										 //容器高度
-						,width: 1050
-						,limit:5
+						elem: '#demo' //指定原始表格元素选择器（推荐id选择器）							//容器高度
+						,width: 1058
+						,page:true
 						,url:'/back/customerlist'
 						,cols: [[
 							 {field:'cid',title:'ID',width:'50'}
@@ -114,6 +147,16 @@
 							});
 						}
                     });
+
+                    form.on('submit(recordsearch)',function (data) {
+
+                        table.reload('demo',{
+                            where: data.field,
+                            page: {curr: 1}
+                        });
+                        return false;
+                    });
+
 				});
 			</script>
 	</body>

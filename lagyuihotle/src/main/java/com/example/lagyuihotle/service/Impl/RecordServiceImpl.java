@@ -19,8 +19,8 @@ public class RecordServiceImpl implements RecordService {
     RecordDao recordDao;
 
     @Override
-    public List<Record> recordlist() {
-        return recordDao.allrecord();
+    public List<Record> recordlist(Record record) {
+        return recordDao.allrecord(record);
     }
 
     @Override

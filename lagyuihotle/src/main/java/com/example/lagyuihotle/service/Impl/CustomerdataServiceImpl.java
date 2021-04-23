@@ -23,8 +23,8 @@ public class CustomerdataServiceImpl implements CustomerdataService {
      * @return
      */
     @Override
-    public List<Customerdata> customerlist() {
-        return customerdataDao.allcustomer();
+    public List<Customerdata> customerlist(Customerdata customerdata) {
+        return customerdataDao.allcustomer(customerdata);
     }
 
     @Override

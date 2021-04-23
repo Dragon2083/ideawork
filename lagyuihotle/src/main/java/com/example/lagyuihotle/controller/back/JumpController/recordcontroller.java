@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.example.lagyuihotle.pojo.entity.Record;
 import com.example.lagyuihotle.service.RecordService;
 import com.example.lagyuihotle.service.RoomdataService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -31,13 +33,15 @@ public class recordcontroller {
 
     @RequestMapping("/back/recordlist")
     @ResponseBody
-    String recordlist(){
-        List<Record> list = recordService.recordlist();
+    String recordlist(int page,int limit,Record record){
+        PageHelper.startPage(page,limit);
+        List<Record> list = recordService.recordlist(record);
+        PageInfo<Record> pageInfo = new PageInfo(list);
         JSONObject obj = new JSONObject();
         obj.put("code", 0);
         obj.put("msg", "");
-        obj.put("count",15);
-        obj.put("data",list);
+        obj.put("count",pageInfo.getTotal());
+        obj.put("data",pageInfo.getList());
         return obj.toString();
     }
     @RequestMapping("/back/recordlistbycid")
@@ -52,6 +56,10 @@ public class recordcontroller {
         return obj.toString();
     }
 
+    /**
+     * 主页的当天入住记录
+     * @return
+     */
     @RequestMapping("/back/recordbydate")
     @ResponseBody
     String recordbydate(){

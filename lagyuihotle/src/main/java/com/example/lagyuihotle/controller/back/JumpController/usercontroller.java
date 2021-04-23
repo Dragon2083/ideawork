@@ -4,6 +4,8 @@ package com.example.lagyuihotle.controller.back.JumpController;
 import com.alibaba.fastjson.JSONObject;
 import com.example.lagyuihotle.pojo.entity.Userdata;
 import com.example.lagyuihotle.service.UserdataService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,18 +26,15 @@ public class usercontroller {
 
     @RequestMapping("/back/userlist")
     @ResponseBody
-    String userlist(Model model){
-
-        List<Userdata> list =  userdataService.ulist();
-
-        //model.addAttribute("userlist",list);
+    String userlist(int page,int limit,Userdata userdata){
+        PageHelper.startPage(page,limit);
+        List<Userdata> list =  userdataService.ulist(userdata);
+        PageInfo<Userdata> pageInfo = new PageInfo(list);
         JSONObject obj = new JSONObject();
-
         obj.put("code", 0);
         obj.put("msg", "");
-        obj.put("count",15);
-        obj.put("data",list);
-
+        obj.put("count",pageInfo.getTotal());
+        obj.put("data",pageInfo.getList());
         return obj.toString();
     }
 

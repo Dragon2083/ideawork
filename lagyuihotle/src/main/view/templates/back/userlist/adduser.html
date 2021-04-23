@@ -67,7 +67,6 @@
 
 				form.on('submit(adduser)', function (data) {
 					let formData = new FormData(data.form);
-					alert(formData.get("phone"));
 					$.ajax({
 						url: "/back/adduser",
 						data: formData,

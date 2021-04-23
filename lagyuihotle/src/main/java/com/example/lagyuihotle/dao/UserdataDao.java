@@ -17,7 +17,7 @@ public interface UserdataDao {
 
     int updateByPrimaryKey(Userdata record);
 
-    List<Userdata> allUserData();
+    List<Userdata> allUserData(Userdata userdata);
 
     //int insertall(Userdata recod);
 }

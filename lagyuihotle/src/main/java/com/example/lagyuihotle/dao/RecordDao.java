@@ -17,7 +17,7 @@ public interface RecordDao {
 
     int updateByPrimaryKey(Record record);
 
-    List<Record> allrecord();
+    List<Record> allrecord(Record record);
 
     List<Record> recordbylist(int cid);
 

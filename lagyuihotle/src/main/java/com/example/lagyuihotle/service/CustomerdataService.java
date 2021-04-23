@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface CustomerdataService {
 
-    List<Customerdata> customerlist();
+    List<Customerdata> customerlist(Customerdata customerdata);
 
     //删除
 

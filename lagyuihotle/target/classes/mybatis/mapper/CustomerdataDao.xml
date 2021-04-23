@@ -23,6 +23,21 @@
     select
     <include refid="Base_Column_List" />
     from customerdata
+    <where>
+
+      <if test="account!='' and account!=null">
+        account like concat('%',#{account,jdbcType=VARCHAR},'%')
+      </if>
+
+      <if test="cname!='' and cname!=null">
+        and cname like concat('%',#{cname,jdbcType=VARCHAR},'%')
+      </if>
+
+      <if test="gender!='' and gender!=null">
+        and gender like  #{gender,jdbcType=VARCHAR}
+      </if>
+    </where>
+
   </select>
     <select id="selectBykey" resultType="com.example.lagyuihotle.pojo.entity.Customerdata">
       select

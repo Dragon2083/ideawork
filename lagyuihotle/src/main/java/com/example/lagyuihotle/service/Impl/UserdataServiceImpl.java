@@ -36,8 +36,8 @@ public class UserdataServiceImpl implements UserdataService {
     }
 
     @Override
-    public List<Userdata> ulist() {
-        List<Userdata>  list = userdataDao.allUserData();
+    public List<Userdata> ulist(Userdata userdata) {
+        List<Userdata>  list = userdataDao.allUserData(userdata);
         return list;
     }
 

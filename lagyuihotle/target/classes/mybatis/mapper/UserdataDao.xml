@@ -21,6 +21,21 @@
       select
       <include refid="Base_Column_List" />
         from userdata
+        <where>
+
+          <if test="idcard!='' and idcard!=null">
+            idcard like concat('%',#{idcard,jdbcType=VARCHAR},'%')
+          </if>
+
+          <if test="uname!='' and uname!=null">
+           and uname like concat('%',#{uname,jdbcType=VARCHAR},'%')
+          </if>
+
+          <if test="category!=null">
+           and category = #{category,jdbcType=INTEGER}
+          </if>
+
+        </where>
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from userdata

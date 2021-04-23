@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface RecordService {
 
-    List<Record> recordlist();
+    List<Record> recordlist(Record record);
 
     List<Record> recordbycid(int cid);
 

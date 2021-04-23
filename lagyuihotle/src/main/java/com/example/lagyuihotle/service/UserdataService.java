@@ -9,7 +9,7 @@ public interface UserdataService {
 
     boolean blongin(Userdata user); //判断登录
 
-     List<Userdata> ulist();   //返回全部用户
+     List<Userdata> ulist(Userdata userdata);   //返回全部用户
 
     int udel(String id);
 

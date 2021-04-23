@@ -23,6 +23,20 @@
       select
       <include refid="Base_Column_List" />
       from record
+      <where>
+        <if test="cname!='' and cname!=null">
+          cname like concat('%',#{cname,jdbcType=VARCHAR},'%')
+        </if>
+
+        <if test="rnumber!=null">
+          and rnumber = #{rnumber,jdbcType=INTEGER}
+        </if>
+
+        <if test="useable!=null">
+          and useable = #{useable,jdbcType=INTEGER}
+        </if>
+      </where>
+
     </select>
     <select id="selectprice" resultType="java.lang.Integer">
       SELECT TIMESTAMPDIFF(DAY,record.checkindate,record.checkoutdate) AS StampdiffTime FROM record WHERE record.id = #{id,jdbcType=INTEGER}
