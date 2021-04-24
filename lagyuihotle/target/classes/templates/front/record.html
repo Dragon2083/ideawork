@@ -135,6 +135,35 @@
     <div class="reservation_top" style="background-color:#eeeeee">
 
         <div style="margin-left: 20%">
+        <div style="margin-top: 1%">
+                <form class="layui-form" >
+                    <div class="layui-form-item">
+
+                        <div class="layui-inline">
+                            <label class="layui-form-label">房间号</label>
+                            <div class="layui-input-block" style="width: 200px">
+                                <input type="text" name="rnumber"  placeholder="输入房间号"  class="layui-input">
+                            </div>
+                        </div>
+
+                        <div class="layui-inline">
+                            <label class="layui-form-label" style="width: 100px">是否退房</label>
+                            <div class="layui-input-block" style="width:200px">
+                                <select name="useable" lay-filter="required">
+                                    <option></option>
+                                    <option value=0 >已退</option>
+                                    <option value=1 >未退</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <button type="button" class="layui-btn layui-bg-red" lay-submit lay-filter="recordsearch">
+                                <i class="layui-icon layui-icon-search" style="font-size: 30px; color:white;" ></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         <table id="demo" name="roomlist" lay-filter="rooms"></table>
         <script type="text/html" id="barDemo">
             <a class="layui-btn layui-btn-xs" lay-event="del">退订</a>
@@ -169,10 +198,9 @@
         var data = layui.sessionData('customer').customerdata[5].cid;
         //列表
         table.render({
-            elem: '#demo' //指定原始表格元素选择器（推荐id选择器）
-            ,height: 550										 //容器高度
+            elem: '#demo' //指定原始表格元素选择器（推荐id选择器）//容器高度
             ,width: 960
-            ,limit:5
+            ,page:true
             ,url:'/back/recordlistbycid?cid='+data
             ,cols: [[
                 {field:'id',title:'ID',width:'50'}
@@ -291,6 +319,15 @@
                 }
             });
         }
+
+        form.on('submit(recordsearch)',function (data) {
+
+            table.reload('demo',{
+                where: data.field,
+                page: {curr: 1}
+            });
+            return false;
+        });
 
     });
 </script>

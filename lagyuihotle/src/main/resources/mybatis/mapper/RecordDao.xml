@@ -44,7 +44,17 @@
     <select id="recordbylist" resultType="com.example.lagyuihotle.pojo.entity.Record">
       select
       <include refid="Base_Column_List" />
-      from record where cid = #{cid,jdbcType=INTEGER}
+      from record
+
+      <where>
+        cid = #{cid,jdbcType=INTEGER}
+
+        <if test="useable!=null">
+          and useable = #{useable,jdbcType=INTEGER}
+        </if>
+
+      </where>
+
     </select>
   <select id="recordbydate" resultType="com.example.lagyuihotle.pojo.entity.Record">
     select

@@ -46,13 +46,15 @@ public class recordcontroller {
     }
     @RequestMapping("/back/recordlistbycid")
     @ResponseBody
-    String recordlistbycid(int cid){
-        List<Record> list = recordService.recordbycid(cid);
+    String recordlistbycid(int cid,int page,int limit,Record record){
+        PageHelper.startPage(page,limit);
+        List<Record> list = recordService.recordbycid(cid,record);
+        PageInfo<Record> pageInfo = new PageInfo(list);
         JSONObject obj = new JSONObject();
         obj.put("code", 0);
         obj.put("msg", "");
-        obj.put("count",15);
-        obj.put("data",list);
+        obj.put("count",pageInfo.getTotal());
+        obj.put("data",pageInfo.getList());
         return obj.toString();
     }
 
