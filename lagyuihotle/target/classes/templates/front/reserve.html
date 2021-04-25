@@ -43,6 +43,7 @@
 					<li th:if="${session.flogin != null}"><a href="#" th:text="${session.flogin.cname}"></a>
 						<ul class="dropdown2">
 							<li><a th:href="@{/information}">基本资料</a></li>
+							<li><a th:href="@{/record}">预定记录</a></li>
 							<li><a th:href="@{/logout}">退出登录</a></li>
 						</ul>
 					</li>
