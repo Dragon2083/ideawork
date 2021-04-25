@@ -46,9 +46,9 @@ public class recordcontroller {
     }
     @RequestMapping("/back/recordlistbycid")
     @ResponseBody
-    String recordlistbycid(int cid,int page,int limit,Record record){
+    String recordlistbycid(int page,int limit,Record record){
         PageHelper.startPage(page,limit);
-        List<Record> list = recordService.recordbycid(cid,record);
+        List<Record> list = recordService.recordbycid(record);
         PageInfo<Record> pageInfo = new PageInfo(list);
         JSONObject obj = new JSONObject();
         obj.put("code", 0);

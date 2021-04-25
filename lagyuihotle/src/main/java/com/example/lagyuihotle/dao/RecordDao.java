@@ -19,7 +19,7 @@ public interface RecordDao {
 
     List<Record> allrecord(Record record);
 
-    List<Record> recordbylist(int cid,Record record);
+    List<Record> recordbylist(Record record);
 
     List<Record> recordbydate();
 

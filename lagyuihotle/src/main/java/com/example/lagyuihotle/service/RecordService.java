@@ -12,7 +12,7 @@ public interface RecordService {
 
     List<Record> recordlist(Record record);
 
-    List<Record> recordbycid(int cid,Record record);
+    List<Record> recordbycid(Record record);
 
     List<Record> recordbydate();
 

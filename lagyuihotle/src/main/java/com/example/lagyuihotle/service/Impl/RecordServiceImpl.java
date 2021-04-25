@@ -24,8 +24,8 @@ public class RecordServiceImpl implements RecordService {
     }
 
     @Override
-    public List<Record> recordbycid(int cid,Record record) {
-        return recordDao.recordbylist(cid,record);
+    public List<Record> recordbycid(Record record) {
+        return recordDao.recordbylist(record);
     }
 
     @Override
