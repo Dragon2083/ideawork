@@ -5,6 +5,7 @@ import com.example.lagyuihotle.pojo.entity.Customerdata;
 import com.example.lagyuihotle.pojo.entity.Record;
 import com.example.lagyuihotle.pojo.entity.Roomdata;
 import com.example.lagyuihotle.service.CustomerdataService;
+import com.example.lagyuihotle.service.HotelService;
 import com.example.lagyuihotle.service.RecordService;
 import com.example.lagyuihotle.service.RoomdataService;
 import org.springframework.stereotype.Controller;
@@ -29,14 +30,20 @@ public class frontcontroller {
     RoomdataService roomdataService;
     @Resource
     RecordService recordService;
+    @Resource
+    HotelService hotelService;
 
    @RequestMapping("/")
-   String index(){
+   String index(Model model){
+       String phone = hotelService.selectbyid().getPhone();
+       model.addAttribute("phone",phone);
        return "/front/index";
    }
 
    @RequestMapping("/about")
-   String  about(){
+   String  about(Model model){
+       String about = hotelService.selectbyid().getAbout();
+       model.addAttribute("about",about);
        return "/front/about";
    }
 

@@ -142,7 +142,6 @@
                 </ul>
             </div>
         </div>
-
         <div class="clearfix"></div>
     </div>
 
@@ -163,12 +162,9 @@
         <div class="row grids text-center">
             <div class="col-md-4">
                 <div class="view view-tenth">
-                    <a href="single.html">
                         <div class="inner_content clearfix">
                             <div class="product_image">
                                 <img th:src="@{/images/pic1.jpg}" class="img-responsive" alt=""/>
-                                <div class="label-product">
-                                    <span class="new">价格150RMB</span></div>
                                 <div class="mask">
                                     <h2>单人间</h2>
                                     <h3>A wonderful serenity has taken possession of my entire soul</h3>
@@ -176,25 +172,21 @@
                                 </div>
                             </div>
                         </div>
-                    </a>
                 </div>
                 <div class="product_container wow bounceIn" data-wow-delay="0.4s">
                     <h3><a href="#">单人间</a></h3>
                     <div class="underheader-line"></div>
                     <ul class="person">
-                        <h4>最大入住人数:</h4>
+                        <h4>最大入住人数:1</h4>
                         <li><i class="fa fa-male"> </i></li>
                     </ul>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="view view-tenth">
-                    <a href="single.html">
                         <div class="inner_content clearfix">
                             <div class="product_image">
                                 <img th:src="@{/images/pic3.jpg}" class="img-responsive" alt=""/>
-                                <div class="label-product">
-                                    <span class="new">价格170RMB</span></div>
                                 <div class="mask">
                                     <h2>双人间</h2>
                                     <h3>A wonderful serenity has taken possession of my entire soul</h3>
@@ -202,13 +194,12 @@
                                 </div>
                             </div>
                         </div>
-                    </a>
                 </div>
                 <div class="product_container wow bounceIn" data-wow-delay="0.4s">
                     <h3><a href="#">双人间</a></h3>
                     <div class="underheader-line"></div>
                     <ul class="person">
-                        <h4>最大入住人数:</h4>
+                        <h4>最大入住人数:2</h4>
                         <li><i class="fa fa-male"> </i></li>
                         <li><i class="fa fa-male"> </i></li>
                     </ul>
@@ -216,12 +207,9 @@
             </div>
             <div class="col-md-4">
                 <div class="view view-tenth">
-                    <a href="single.html">
                         <div class="inner_content clearfix">
                             <div class="product_image">
                                 <img th:src="@{/images/pic2.jpg}" class="img-responsive" alt=""/>
-                                <div class="label-product">
-                                    <span class="new">价格200RMB</span></div>
                                 <div class="mask">
                                     <h2>特大床房间</h2>
                                     <h3>A wonderful serenity has taken possession of my entire soul</h3>
@@ -229,13 +217,12 @@
                                 </div>
                             </div>
                         </div>
-                    </a>
                 </div>
                 <div class="product_container wow bounceIn" data-wow-delay="0.4s">
                     <h3><a href="#">特大床房间</a></h3>
                     <div class="underheader-line"></div>
                     <ul class="person">
-                        <h4>最大入住人数:</h4>
+                        <h4>最大入住人数:3</h4>
                         <li><i class="fa fa-male"> </i></li>
                         <li><i class="fa fa-male"> </i></li>
                         <li><i class="fa fa-male"> </i></li>
@@ -248,11 +235,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-9">
-                    <div id="main-reservation-text"><h3>您可以拨打宾馆预约电话：<span>123-4567-8900</span>&nbsp;&nbsp;或者在线预约</h3>
+                    <div id="main-reservation-text"><h3>您可以拨打宾馆预约电话：<span th:text="${phone}"></span>&nbsp;&nbsp;或者在线预约</h3>
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <a href="reservation.html" title="Online Reservation" class="btn btn-primary btn-normal btn-inline "
+                    <a th:href="@{/room}" title="Online Reservation" class="btn btn-primary btn-normal btn-inline "
                        target="_self">在线预约</a>
                 </div>
             </div>
@@ -265,12 +252,7 @@
                     <h3>Info</h3>
                     <ul id="general-info">
                         <li><i class="fa fa-clock-o"> </i>Check-in: 14:00; Check-out: 12:00</li>
-                        <li><i class="fa fa-globe"> </i>Free Wi-Fi Internet in Rooms</li>
-                        <li><i class="fa fa-cutlery"> </i>In Room Dining Available from <br>06:00pm to 10:30pm</li>
-                        <li><i class="fa fa-truck"> </i>Local Self Parking: $20-$25 per night</li>
-                        <li><i class="fa fa-picture-o"> </i>Walking Distance to Wall Street, Battery Park and Brooklyn
-                            Bridge
-                        </li>
+                        <li><i class="fa fa-globe"> </i>房间内有免费WiFi</li>
                     </ul>
                 </div>
             </div>

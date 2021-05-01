@@ -1,9 +1,13 @@
 package com.example.lagyuihotle.controller.back.JumpController;
 
+import com.alibaba.fastjson.JSONObject;
+import com.example.lagyuihotle.pojo.entity.Hoteldata;
+import com.example.lagyuihotle.service.HotelService;
 import com.example.lagyuihotle.service.RoomdataService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -18,6 +22,9 @@ public class Indexcontroller {
     @Resource
     RoomdataService roomdataService;
 
+    @Resource
+    HotelService hotelService;
+
     @RequestMapping("/back/user/list")
     String touserlist(){
         return "/back/userlist/userlist";
@@ -31,6 +38,20 @@ public class Indexcontroller {
     @RequestMapping("/back/information")
     String information(){
         return "/back/information";
+    }
+
+    @RequestMapping("/back/hoteldata")
+    String hoteldata(){
+        return  "/back/hoteldata";
+    }
+    //更新前台的数据显示
+    @RequestMapping("/back/hotelupdata")
+    @ResponseBody
+    String hotel(Model model, Hoteldata hoteldata){
+        int flag =  hotelService.updatehoteldata(hoteldata);
+        JSONObject json =  new JSONObject();
+        json.put("flag",flag);
+        return json.toString();
     }
 
     @RequestMapping("/back/console")
