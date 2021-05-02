@@ -230,10 +230,16 @@
 							 if(res["flag"]==2) {
 								layer.msg("很抱歉，没有符合条件的房间了！", {icon: 5});
 							}else if(res["flag"]==1){
-								layer.confirm('您预定的房间号为'+res["roomnumber"],{icon:3,title:'预定成功'},function (index) {
+								/*layer.confirm('您预定的房间号为'+res["roomnumber"],{icon:3,title:'预定成功'},function (index) {
+									layer.close(index);
+								});*/
+								layer.confirm('您预定的房间号为'+res["roomnumber"],{icon:3,title:'预定成功'},function () {
+									window.location.href = "/order/confrim";
+								},function (index) {
+									window.location.href = "/order/confrim";
 									layer.close(index);
 								});
-							}
+							 }
 						}
 
 					},
