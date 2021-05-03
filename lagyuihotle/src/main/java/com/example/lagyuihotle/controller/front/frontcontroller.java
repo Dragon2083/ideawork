@@ -94,7 +94,7 @@ public class frontcontroller {
    @RequestMapping("/reserve")
    @ResponseBody
    String reserve(Record record,int rtype,HttpSession session){
-      List<Roomdata> res =roomdataService.reservroomrecord(rtype,record);
+      //List<Roomdata> res =roomdataService.reservroomrecord(rtype,record);
        JSONObject json=new JSONObject();
         if(session.getAttribute("flogin")!=null){
             Roomdata room;
@@ -106,8 +106,9 @@ public class frontcontroller {
                 record.setRnumber(room.getRname());
                 record.setCid(cus.getCid());
                 record.setCname(cus.getCname());
-                flag = recordService.addrecord(record);
-                json.put("flag",flag);
+                session.setAttribute("record",record);
+                //flag = recordService.addrecord(record);
+                json.put("flag",1);
                 json.put("roomnumber",room.getRname());
                 return json.toString();
             }else{
@@ -118,19 +119,27 @@ public class frontcontroller {
                 }else{
                     room = reslist.get(0);
                     record.setRnumber(room.getRname());
-                    session.setAttribute("reserveroom",room.getRname());
                     record.setCid(cus.getCid());
                     record.setCname(cus.getCname());
-                     flag = recordService.addrecord(record);
-                    json.put("flag",flag);
+                    session.setAttribute("record",record);
+                    //flag = recordService.addrecord(record);
+                    json.put("roomnumber",room.getRname());
+                    json.put("flag",1);
                     return json.toString();
                 }
-
             }
         }else {
             json.put("flag",3);
             return json.toString();
         }
+   }
+    //预定成功
+   @RequestMapping("/reservesuccess")
+   String reservation(HttpSession session){
+
+       Record record = (Record) session.getAttribute("record");
+       recordService.addrecord(record);
+       return "redirect:/record";
    }
 
     /**

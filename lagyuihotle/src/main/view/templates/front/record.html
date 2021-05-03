@@ -35,9 +35,7 @@
                     <li><a th:href="@{/}">主页</a></li>
                     <li><a href="#">预定</a>
                         <ul class="dropdown2">
-                            <li><a th:href="@{/room}">Room 1</a></li>
-                            <li><a th:href="@{/room}">Room 2</a></li>
-                            <li><a th:href="@{/room}">Room 3</a></li>
+                            <li><a th:href="@{/room}">预定房间</a></li>
                         </ul>
                     </li>
                     <li><a th:href="@{/about}">关于</a></li>
@@ -208,7 +206,7 @@
                 ,{field:'cid',title:'顾客id',width:'100'}
                 ,{field:'cname',title:'顾客姓名',width:'100'}
                 ,{field:'rnumber',title:'房间号',width:'100'}
-                ,{field:'checkindate',title:'入住日期',width:'150',templet : "<div>{{layui.util.toDateString(d.checkindate, 'yyyy-MM-dd')}}</div>"}
+                ,{field:'checkindate',title:'入住日期',width:'150',sort: true,templet : "<div>{{layui.util.toDateString(d.checkindate, 'yyyy-MM-dd')}}</div>"}
                 ,{field:'checkoutdate',title:'退房日期',width:'150',templet : "<div>{{layui.util.toDateString(d.checkoutdate, 'yyyy-MM-dd')}}</div>"}
                 ,{field:'useable',title:'是否退房',width:'100'
                     ,templet:function (d) {

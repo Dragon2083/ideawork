@@ -28,10 +28,10 @@ public class AlipayConfig {
     public static String alipay_public_key = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2JdI3TFMAIPDptC06Wlr1JFaNleaxZReG1H9adwKOYGcuYrpe+g5Nex2sUdA732swVEuBpkd+MjmISBmNkPGa/y1kmUQqQ/LUSCuCOFhLHnQNRDC8lcHxlvaHdJoNHQ2yE96ir+x/WO+kLgYuy3pa0aQzsqixtr69HI/w1lXyYakHqdM/gj14YLomh0yOj8ZmtICYgBGkLos/XTh6kwILWndjkvUALJZ6IyBh2jgMhtHKTc5HeC6ayt0Nsi/5xNbBe9JmsUWtwsJmMIu4CfyPWIq3WkQduL4SngFUPCfUr0T5+1hrCiNndsqx3aA7+FGDx+pP+WYzA5oqb3FKKc6JwIDAQAB";
 
     // 服务器异步通知页面路径  需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问，假设这里的公网IP和端口为：49.269.31.237:8081
-    public static String notify_url = " http://49.269.31.237:8081 /pay/synnotify";
+    public static String notify_url = " http://localhost:8080/pay/synnotify";
 
     // 页面跳转同步通知页面路径 需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问，假设这里的公网IP和端口为：49.269.31.237:8081
-    public static String return_url = "http://49.269.31.237:8081/pay/return_notify";
+    public static String return_url = "http://localhost:8080/pay/return_notify";
 
     // 签名方式
     public static String sign_type = "RSA2";

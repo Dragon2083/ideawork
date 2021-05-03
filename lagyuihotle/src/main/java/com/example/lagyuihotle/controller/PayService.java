@@ -83,7 +83,7 @@ public class PayService {
 
     }
     //支付宝异步通知
-    @RequestMapping("pay/synnotify")
+    @RequestMapping("/pay/synnotify")
     public String synNotify(HttpServletRequest request) throws AlipayApiException, UnsupportedEncodingException {
         Map<String, String> params = new HashMap<String, String>();
         Map<String, String[]> requestParams = request.getParameterMap();
@@ -147,7 +147,7 @@ public class PayService {
     //支付宝同步通知
     @RequestMapping("/pay/return_notify")
     public String returnNotify(){
-        return "return_notify";
+        return "redirect:/reservesuccess";
     }
 
 }
