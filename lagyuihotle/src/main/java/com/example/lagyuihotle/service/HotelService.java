@@ -10,4 +10,5 @@ public interface HotelService {
     int  updatehoteldata(Hoteldata hoteldata);
 
     Hoteldata selectbyid();
+
 }

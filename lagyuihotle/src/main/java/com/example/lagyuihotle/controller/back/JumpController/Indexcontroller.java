@@ -41,7 +41,13 @@ public class Indexcontroller {
     }
 
     @RequestMapping("/back/hoteldata")
-    String hoteldata(){
+    String hoteldata(HttpSession session){
+        Hoteldata hoteldata = hotelService.selectbyid();
+        session.setAttribute("hotelphone",hoteldata.getPhone());
+        session.setAttribute("hotelabout",hoteldata.getAbout());
+        session.setAttribute("hotelsingle",hoteldata.getSingle());
+        session.setAttribute("hoteltwo",hoteldata.getTwo());
+        session.setAttribute("hotelthree",hoteldata.getThree());
         return  "/back/hoteldata";
     }
     //更新前台的数据显示

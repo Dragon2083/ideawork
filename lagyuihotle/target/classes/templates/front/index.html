@@ -112,7 +112,7 @@
                     <li><a th:href="@{/}">主页</a></li>
                     <li><a href="#">预定</a>
                         <ul class="dropdown2">
-                            <li><a th:href="@{/room}">预定房间</a></li>
+                            <li><a th:href="@{/room(type=1)}">预定房间</a></li>
                         </ul>
                     </li>
                     <li><a th:href="@{/about}">关于</a></li>
@@ -136,6 +136,7 @@
                             <li><a th:href="@{/logout}">退出登录</a></li>
                         </ul>
                     </li>
+                    <li><a th:href="@{/address}">地址</a></li>
                     <div class="clearfix"></div>
                 </ul>
             </div>
@@ -160,9 +161,12 @@
         <div class="row grids text-center">
             <div class="col-md-4">
                 <div class="view view-tenth">
+                    <a th:href="@{/room(type=1)}">
                         <div class="inner_content clearfix">
                             <div class="product_image">
                                 <img th:src="@{/images/pic1.jpg}" class="img-responsive" alt=""/>
+                                <div class="label-product">
+                                    <span class="new" th:text="${single}+'￥'"></span></div>
                                 <div class="mask">
                                     <h2>单人间</h2>
                                     <h3>A wonderful serenity has taken possession of my entire soul</h3>
@@ -170,6 +174,7 @@
                                 </div>
                             </div>
                         </div>
+                    </a>
                 </div>
                 <div class="product_container wow bounceIn" data-wow-delay="0.4s">
                     <h3><a href="#">单人间</a></h3>
@@ -182,9 +187,12 @@
             </div>
             <div class="col-md-4">
                 <div class="view view-tenth">
+                    <a th:href="@{/room(type=2)}">
                         <div class="inner_content clearfix">
                             <div class="product_image">
                                 <img th:src="@{/images/pic3.jpg}" class="img-responsive" alt=""/>
+                                <div class="label-product">
+                                    <span class="new" th:text="${two}+'￥'"></span> </div>
                                 <div class="mask">
                                     <h2>双人间</h2>
                                     <h3>A wonderful serenity has taken possession of my entire soul</h3>
@@ -192,6 +200,7 @@
                                 </div>
                             </div>
                         </div>
+                    </a>
                 </div>
                 <div class="product_container wow bounceIn" data-wow-delay="0.4s">
                     <h3><a href="#">双人间</a></h3>
@@ -205,9 +214,12 @@
             </div>
             <div class="col-md-4">
                 <div class="view view-tenth">
+                    <a th:href="@{/room(type=3)}">
                         <div class="inner_content clearfix">
                             <div class="product_image">
                                 <img th:src="@{/images/pic2.jpg}" class="img-responsive" alt=""/>
+                                <div class="label-product">
+                                    <span class="new" th:text="${three}+'￥'"></span> </div>
                                 <div class="mask">
                                     <h2>特大床房间</h2>
                                     <h3>A wonderful serenity has taken possession of my entire soul</h3>
@@ -215,6 +227,7 @@
                                 </div>
                             </div>
                         </div>
+                    </a>
                 </div>
                 <div class="product_container wow bounceIn" data-wow-delay="0.4s">
                     <h3><a href="#">特大床房间</a></h3>

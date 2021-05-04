@@ -29,7 +29,7 @@
 					<li><a th:href="@{/}">主页</a></li>
 					<li><a href="#">预定</a>
 						<ul class="dropdown2">
-                            <li><a th:href="@{/room}">预定房间</a></li>
+                            <li><a th:href="@{/room(type=1)}">预定房间</a></li>
 						</ul>
 					</li>
 					<li><a th:href="@{/about}">关于</a></li>
@@ -45,6 +45,7 @@
 							<li><a th:href="@{/logout}">退出登录</a></li>
 						</ul>
 					</li>
+					<li><a th:href="@{/address}">地址</a></li>
 					<div class="clearfix"></div>
 				</ul>
 			</div>
@@ -145,7 +146,7 @@
 					 <div class="layui-form-item">
 						 <label class="layui-form-label" style="width: 100px">房间类型</label>
 						 <div class="layui-input-block" style="width:250px">
-							 <select name="rtype" lay-filter="required">
+							 <select id="type" name="rtype" lay-filter="required">
 								 <option value=1 >单人间</option>
 								 <option value=2 >双人间</option>
 								 <option value=3 >三人间</option>
@@ -198,6 +199,12 @@
 			var form = layui.form;
 			var laydate = layui.laydate;
 			var layer = layui.layer;
+
+
+			var type = [[${type}]];
+			console.log(type);
+			$("#type").val(type);
+			form.render('select');
 
 			//入住日期和退房日期
 			laydate.render({

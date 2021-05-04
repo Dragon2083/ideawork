@@ -8,7 +8,7 @@
     <script th:src="@{/layui/layui.js}" charset="utf-8"></script>
 </head>
 <body>
-        <form class="layui-form" lay-filter="userdata" style="margin-top: 15%;margin-left: 20%">
+        <form class="layui-form" lay-filter="userdata" style="margin-top: 10%;margin-left: 30%">
 
             <div class="layui-form-item" style="display: none">
                 <div class="layui-input-block" style="width: 200px">
@@ -19,16 +19,38 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">联系电话</label>
                 <div class="layui-input-block"  style="width: 200px">
-                    <input type="text" name="phone" value="" lay-verify="required" class="layui-input">
+                    <input type="text" name="phone" th:value="${session.hotelphone}" lay-verify="required" class="layui-input">
                 </div>
             </div>
 
             <div class="layui-form-item layui-form-text">
                 <label class="layui-form-label">关于</label>
                 <div class="layui-input-block">
-                    <textarea  class="layui-textarea" name="about" style="width: 300px;height: 100px"></textarea>
+                    <textarea  class="layui-textarea" name="about" th:text="${session.hotelabout}" style="width: 300px;height: 100px"></textarea>
                 </div>
             </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label" >单人间房费</label>
+                <div class="layui-input-block"  style="width: 200px">
+                    <input type="text" name="single" th:value="${session.hotelsingle}" lay-verify="required" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">双人房费用</label>
+                <div class="layui-input-block"  style="width: 200px">
+                    <input type="text" name="two" th:value="${session.hoteltwo}" lay-verify="required" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">三人房费用</label>
+                <div class="layui-input-block"  style="width: 200px">
+                    <input type="text" name="three" th:value="${session.hotelthree}" lay-verify="required" class="layui-input">
+                </div>
+            </div>
+
 
             <div class="layui-form-item">
                 <div class="layui-input-block">
@@ -37,6 +59,7 @@
             </div>
         </form>
 <script>
+
     layui.use('form', function(){
         var form = layui.form;
         form.on('submit(formdata)', function(data){

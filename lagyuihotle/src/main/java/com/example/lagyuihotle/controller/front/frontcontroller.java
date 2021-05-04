@@ -2,6 +2,7 @@ package com.example.lagyuihotle.controller.front;
 
 import com.alibaba.fastjson.JSONObject;
 import com.example.lagyuihotle.pojo.entity.Customerdata;
+import com.example.lagyuihotle.pojo.entity.Hoteldata;
 import com.example.lagyuihotle.pojo.entity.Record;
 import com.example.lagyuihotle.pojo.entity.Roomdata;
 import com.example.lagyuihotle.service.CustomerdataService;
@@ -35,8 +36,11 @@ public class frontcontroller {
 
    @RequestMapping("/")
    String index(Model model){
-       String phone = hotelService.selectbyid().getPhone();
-       model.addAttribute("phone",phone);
+       Hoteldata hoteldata = hotelService.selectbyid();
+       model.addAttribute("phone",hoteldata.getPhone());
+       model.addAttribute("single",hoteldata.getSingle());
+       model.addAttribute("two",hoteldata.getTwo());
+       model.addAttribute("three",hoteldata.getThree());
        return "/front/index";
    }
 
@@ -48,7 +52,7 @@ public class frontcontroller {
    }
 
    @RequestMapping("/room")
-   String  room(Model model){
+   String  room(Model model,int type){
 
        //剩余可用房间
         int singleroom = roomdataService.Availablerooms(1);
@@ -57,6 +61,7 @@ public class frontcontroller {
         model.addAttribute("single",singleroom);
         model.addAttribute("double",doubleroom);
         model.addAttribute("triole",tripleroom);
+        model.addAttribute("type",type);
        return "/front/reserve";
    }
 
@@ -167,5 +172,13 @@ public class frontcontroller {
     @RequestMapping("/record")
     String record(){
         return "/front/record";
+    }
+
+    /**
+     * 地址
+     */
+    @RequestMapping("/address")
+    String address(){
+        return "/front/address";
     }
 }

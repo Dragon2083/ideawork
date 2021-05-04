@@ -35,7 +35,7 @@
                     <li><a th:href="@{/}">主页</a></li>
                     <li><a href="#">预定</a>
                         <ul class="dropdown2">
-                            <li><a th:href="@{/room}">预定房间</a></li>
+                            <li><a th:href="@{/room(type=1)}">预定房间</a></li>
                         </ul>
                     </li>
                     <li><a th:href="@{/about}">关于</a></li>
@@ -51,6 +51,7 @@
                             <li><a th:href="@{/logout}">退出登录</a></li>
                         </ul>
                     </li>
+                    <li><a th:href="@{/address}">地址</a></li>
                     <div class="clearfix"></div>
                 </ul>
             </div>

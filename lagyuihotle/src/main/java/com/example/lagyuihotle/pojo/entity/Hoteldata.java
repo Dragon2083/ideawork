@@ -15,5 +15,11 @@ public class Hoteldata implements Serializable {
 
     private String about;
 
+    private Double single;
+
+    private Double two;
+
+    private Double three;
+
     private static final long serialVersionUID = 1L;
 }

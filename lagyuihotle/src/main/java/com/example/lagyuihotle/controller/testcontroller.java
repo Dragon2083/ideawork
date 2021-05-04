@@ -34,6 +34,6 @@ public class testcontroller {
 
     @RequestMapping("/test4")
     String  test4(){
-        return "/back/userlist/adduser";
+        return "/front/test";
     }
 }

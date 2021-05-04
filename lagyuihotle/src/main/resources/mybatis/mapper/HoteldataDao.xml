@@ -5,9 +5,12 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="about" jdbcType="VARCHAR" property="about" />
+    <result column="single" jdbcType="DOUBLE" property="single" />
+    <result column="two" jdbcType="DOUBLE" property="two" />
+    <result column="three" jdbcType="DOUBLE" property="three" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, phone, about
+    id, phone, about, single, two, three
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -20,8 +23,10 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.example.lagyuihotle.pojo.entity.Hoteldata" useGeneratedKeys="true">
-    insert into hoteldata (phone, about)
-    values (#{phone,jdbcType=VARCHAR}, #{about,jdbcType=VARCHAR})
+    insert into hoteldata (phone, about, single, 
+      two, three)
+    values (#{phone,jdbcType=VARCHAR}, #{about,jdbcType=VARCHAR}, #{single,jdbcType=DOUBLE}, 
+      #{two,jdbcType=DOUBLE}, #{three,jdbcType=DOUBLE})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.example.lagyuihotle.pojo.entity.Hoteldata" useGeneratedKeys="true">
     insert into hoteldata
@@ -32,6 +37,15 @@
       <if test="about != null">
         about,
       </if>
+      <if test="single != null">
+        single,
+      </if>
+      <if test="two != null">
+        two,
+      </if>
+      <if test="three != null">
+        three,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="phone != null">
@@ -39,6 +53,15 @@
       </if>
       <if test="about != null">
         #{about,jdbcType=VARCHAR},
+      </if>
+      <if test="single != null">
+        #{single,jdbcType=DOUBLE},
+      </if>
+      <if test="two != null">
+        #{two,jdbcType=DOUBLE},
+      </if>
+      <if test="three != null">
+        #{three,jdbcType=DOUBLE},
       </if>
     </trim>
   </insert>
@@ -51,13 +74,25 @@
       <if test="about != null">
         about = #{about,jdbcType=VARCHAR},
       </if>
+      <if test="single != null">
+        single = #{single,jdbcType=DOUBLE},
+      </if>
+      <if test="two != null">
+        two = #{two,jdbcType=DOUBLE},
+      </if>
+      <if test="three != null">
+        three = #{three,jdbcType=DOUBLE},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.example.lagyuihotle.pojo.entity.Hoteldata">
     update hoteldata
     set phone = #{phone,jdbcType=VARCHAR},
-      about = #{about,jdbcType=VARCHAR}
+      about = #{about,jdbcType=VARCHAR},
+      single = #{single,jdbcType=DOUBLE},
+      two = #{two,jdbcType=DOUBLE},
+      three = #{three,jdbcType=DOUBLE}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
