@@ -1,5 +1,6 @@
 package com.example.lagyuihotle.service.Impl;
 
+
 import com.example.lagyuihotle.dao.RecordDao;
 import com.example.lagyuihotle.pojo.entity.Record;
 import com.example.lagyuihotle.service.RecordService;

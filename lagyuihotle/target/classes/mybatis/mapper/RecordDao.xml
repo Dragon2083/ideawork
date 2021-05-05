@@ -4,14 +4,19 @@
   <resultMap id="BaseResultMap" type="com.example.lagyuihotle.pojo.entity.Record">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="cid" jdbcType="INTEGER" property="cid" />
+    <result column="rphone" jdbcType="VARCHAR" property="rphone" />
     <result column="cname" jdbcType="VARCHAR" property="cname" />
     <result column="rnumber" jdbcType="INTEGER" property="rnumber" />
+    <result column="price" jdbcType="DOUBLE" property="price" />
     <result column="checkindate" jdbcType="TIMESTAMP" property="checkindate" />
     <result column="checkoutdate" jdbcType="TIMESTAMP" property="checkoutdate" />
+    <result column="checkin" jdbcType="INTEGER" property="checkin" />
     <result column="useable" jdbcType="INTEGER" property="useable" />
+    <result column="ordernumber" jdbcType="VARCHAR" property="ordernumber" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, cid, cname, rnumber, checkindate, checkoutdate, useable
+    id, cid, rphone, cname, rnumber, price, checkindate, checkoutdate, checkin, useable, 
+    ordernumber
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -19,60 +24,61 @@
     from record
     where id = #{id,jdbcType=INTEGER}
   </select>
-    <select id="allrecord" resultType="com.example.lagyuihotle.pojo.entity.Record">
-      select
-      <include refid="Base_Column_List" />
-      from record
-      <where>
-        <if test="cname!='' and cname!=null">
-          cname like concat('%',#{cname,jdbcType=VARCHAR},'%')
-        </if>
+  <select id="allrecord" resultType="com.example.lagyuihotle.pojo.entity.Record">
+    select
+    <include refid="Base_Column_List" />
+    from record
+    <where>
+      <if test="cname!='' and cname!=null">
+        cname like concat('%',#{cname,jdbcType=VARCHAR},'%')
+      </if>
 
-        <if test="rnumber!=null">
-          and rnumber = #{rnumber,jdbcType=INTEGER}
-        </if>
+      <if test="rnumber!=null">
+        and rnumber = #{rnumber,jdbcType=INTEGER}
+      </if>
 
-        <if test="useable!=null">
-          and useable = #{useable,jdbcType=INTEGER}
-        </if>
-      </where>
-
-    </select>
-    <select id="selectprice" resultType="java.lang.Integer">
+      <if test="useable!=null">
+        and useable = #{useable,jdbcType=INTEGER}
+      </if>
+    </where>
+  </select>
+  <select id="selectprice" resultType="java.lang.Integer">
       SELECT TIMESTAMPDIFF(DAY,record.checkindate,record.checkoutdate) AS StampdiffTime FROM record WHERE record.id = #{id,jdbcType=INTEGER}
-    </select>
-    <select id="recordbylist" resultType="com.example.lagyuihotle.pojo.entity.Record">
-      select
-      <include refid="Base_Column_List" />
-      from record
-      <where>
-        <if test="cid!=null">
-          cid = #{cid,jdbcType=INTEGER}
-        </if>
-        <if test="rnumber!=null">
-         and rnumber = #{rnumber,jdbcType=INTEGER}
-        </if>
-        <if test="useable!=null">
-         and useable = #{useable,jdbcType=INTEGER}
-        </if>
-      </where>
     </select>
   <select id="recordbydate" resultType="com.example.lagyuihotle.pojo.entity.Record">
     select
     <include refid="Base_Column_List" />
     from record where checkindate =  CURDATE()
   </select>
+  <select id="recordbylist" resultType="com.example.lagyuihotle.pojo.entity.Record">
+    select
+    <include refid="Base_Column_List" />
+    from record
+    <where>
+      <if test="cid!=null">
+        cid = #{cid,jdbcType=INTEGER}
+      </if>
+      <if test="rnumber!=null">
+        and rnumber = #{rnumber,jdbcType=INTEGER}
+      </if>
+      <if test="useable!=null">
+        and useable = #{useable,jdbcType=INTEGER}
+      </if>
+    </where>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from record
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.example.lagyuihotle.pojo.entity.Record" useGeneratedKeys="true">
-    insert into record (cid, cname, rnumber, 
-      checkindate, checkoutdate, useable
-      )
-    values (#{cid,jdbcType=INTEGER}, #{cname,jdbcType=VARCHAR}, #{rnumber,jdbcType=INTEGER}, 
-      #{checkindate,jdbcType=TIMESTAMP}, #{checkoutdate,jdbcType=TIMESTAMP}, #{useable,jdbcType=INTEGER}
-      )
+    insert into record (cid, rphone, cname, 
+      rnumber, price, checkindate, 
+      checkoutdate, checkin, useable, 
+      ordernumber)
+    values (#{cid,jdbcType=INTEGER}, #{rphone,jdbcType=VARCHAR}, #{cname,jdbcType=VARCHAR}, 
+      #{rnumber,jdbcType=INTEGER}, #{price,jdbcType=DOUBLE}, #{checkindate,jdbcType=TIMESTAMP}, 
+      #{checkoutdate,jdbcType=TIMESTAMP}, #{checkin,jdbcType=INTEGER}, #{useable,jdbcType=INTEGER}, 
+      #{ordernumber,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.example.lagyuihotle.pojo.entity.Record" useGeneratedKeys="true">
     insert into record
@@ -80,11 +86,17 @@
       <if test="cid != null">
         cid,
       </if>
+      <if test="rphone != null">
+        rphone,
+      </if>
       <if test="cname != null">
         cname,
       </if>
       <if test="rnumber != null">
         rnumber,
+      </if>
+      <if test="price != null">
+        price,
       </if>
       <if test="checkindate != null">
         checkindate,
@@ -92,13 +104,22 @@
       <if test="checkoutdate != null">
         checkoutdate,
       </if>
+      <if test="checkin != null">
+        checkin,
+      </if>
       <if test="useable != null">
         useable,
+      </if>
+      <if test="ordernumber != null">
+        ordernumber,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="cid != null">
         #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="rphone != null">
+        #{rphone,jdbcType=VARCHAR},
       </if>
       <if test="cname != null">
         #{cname,jdbcType=VARCHAR},
@@ -106,14 +127,23 @@
       <if test="rnumber != null">
         #{rnumber,jdbcType=INTEGER},
       </if>
+      <if test="price != null">
+        #{price,jdbcType=DOUBLE},
+      </if>
       <if test="checkindate != null">
         #{checkindate,jdbcType=TIMESTAMP},
       </if>
       <if test="checkoutdate != null">
         #{checkoutdate,jdbcType=TIMESTAMP},
       </if>
+      <if test="checkin != null">
+        #{checkin,jdbcType=INTEGER},
+      </if>
       <if test="useable != null">
         #{useable,jdbcType=INTEGER},
+      </if>
+      <if test="ordernumber != null">
+        #{ordernumber,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -123,11 +153,17 @@
       <if test="cid != null">
         cid = #{cid,jdbcType=INTEGER},
       </if>
+      <if test="rphone != null">
+        rphone = #{rphone,jdbcType=VARCHAR},
+      </if>
       <if test="cname != null">
         cname = #{cname,jdbcType=VARCHAR},
       </if>
       <if test="rnumber != null">
         rnumber = #{rnumber,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DOUBLE},
       </if>
       <if test="checkindate != null">
         checkindate = #{checkindate,jdbcType=TIMESTAMP},
@@ -135,8 +171,14 @@
       <if test="checkoutdate != null">
         checkoutdate = #{checkoutdate,jdbcType=TIMESTAMP},
       </if>
+      <if test="checkin != null">
+        checkin = #{checkin,jdbcType=INTEGER},
+      </if>
       <if test="useable != null">
         useable = #{useable,jdbcType=INTEGER},
+      </if>
+      <if test="ordernumber != null">
+        ordernumber = #{ordernumber,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -144,11 +186,15 @@
   <update id="updateByPrimaryKey" parameterType="com.example.lagyuihotle.pojo.entity.Record">
     update record
     set cid = #{cid,jdbcType=INTEGER},
+      rphone = #{rphone,jdbcType=VARCHAR},
       cname = #{cname,jdbcType=VARCHAR},
       rnumber = #{rnumber,jdbcType=INTEGER},
+      price = #{price,jdbcType=DOUBLE},
       checkindate = #{checkindate,jdbcType=TIMESTAMP},
       checkoutdate = #{checkoutdate,jdbcType=TIMESTAMP},
-      useable = #{useable,jdbcType=INTEGER}
+      checkin = #{checkin,jdbcType=INTEGER},
+      useable = #{useable,jdbcType=INTEGER},
+      ordernumber = #{ordernumber,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

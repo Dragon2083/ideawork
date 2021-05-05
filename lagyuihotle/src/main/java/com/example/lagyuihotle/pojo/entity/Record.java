@@ -1,11 +1,11 @@
 package com.example.lagyuihotle.pojo.entity;
 
-import java.io.Serializable;
-import java.util.Date;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * record
@@ -20,6 +20,8 @@ public class Record implements Serializable {
 
     private Integer cid;
 
+    private String rphone;
+
     /**
      * 顾客姓名
      */
@@ -29,6 +31,8 @@ public class Record implements Serializable {
      * 入住房号
      */
     private Integer rnumber;
+
+    private Double price;
 
     /**
      * 入住时间
@@ -44,7 +48,11 @@ public class Record implements Serializable {
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date checkoutdate;
 
+    private Integer checkin;
+
     private Integer useable;
+
+    private String ordernumber;
 
     private static final long serialVersionUID = 1L;
 }

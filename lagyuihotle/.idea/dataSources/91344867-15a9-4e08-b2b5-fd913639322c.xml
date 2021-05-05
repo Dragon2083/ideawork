@@ -985,105 +985,112 @@
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="237" parent="211" name="useable">
+    <column id="237" parent="211" name="checkin">
       <Position>9</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>0</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="238" parent="211" name="useable">
+      <Position>10</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>1</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="238" parent="211" name="OrderNumber">
-      <Position>10</Position>
+    <column id="239" parent="211" name="ordernumber">
+      <Position>11</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="239" parent="211" name="PRIMARY">
+    <key id="240" parent="211" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="240" parent="212" name="roomid">
+    <column id="241" parent="212" name="roomid">
       <Position>1</Position>
       <DataType>int(10)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="241" parent="212" name="rname">
+    <column id="242" parent="212" name="rname">
       <Position>2</Position>
       <DataType>int(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="242" parent="212" name="rstate">
+    <column id="243" parent="212" name="rstate">
       <Position>3</Position>
       <DataType>varchar(40)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
       <Collation>utf8mb4_general_ci</Collation>
     </column>
-    <column id="243" parent="212" name="rprice">
+    <column id="244" parent="212" name="rprice">
       <Position>4</Position>
       <DataType>double(10)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="244" parent="212" name="ruseable">
+    <column id="245" parent="212" name="ruseable">
       <Position>5</Position>
       <DataType>tinyint(10)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="245" parent="212" name="rtype">
+    <column id="246" parent="212" name="rtype">
       <Position>6</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="246" parent="212" name="PRIMARY">
+    <key id="247" parent="212" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>roomid</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="247" parent="213" name="uname">
+    <column id="248" parent="213" name="uname">
       <Position>1</Position>
       <Comment>用户</Comment>
       <DataType>varchar(20)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="248" parent="213" name="idcard">
+    <column id="249" parent="213" name="idcard">
       <Position>2</Position>
       <DataType>varchar(20)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
       <Collation>utf8mb4_general_ci</Collation>
     </column>
-    <column id="249" parent="213" name="phone">
+    <column id="250" parent="213" name="phone">
       <Position>3</Position>
       <DataType>varchar(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="250" parent="213" name="psw">
+    <column id="251" parent="213" name="psw">
       <Position>4</Position>
       <DataType>varchar(40)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
       <Collation>utf8mb4_general_ci</Collation>
     </column>
-    <column id="251" parent="213" name="category">
+    <column id="252" parent="213" name="category">
       <Position>5</Position>
       <Comment>0：管理员 1：员工</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="252" parent="213" name="perms">
+    <column id="253" parent="213" name="perms">
       <Position>6</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
       <Collation>utf8mb4_general_ci</Collation>
     </column>
-    <key id="253" parent="213" name="PRIMARY">
+    <key id="254" parent="213" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>idcard</ColNames>
       <Primary>1</Primary>
