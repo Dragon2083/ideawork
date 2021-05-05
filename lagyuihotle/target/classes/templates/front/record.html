@@ -134,7 +134,7 @@
 <div class="main">
     <div class="reservation_top" style="background-color:#eeeeee">
 
-        <div style="margin-left: 20%">
+        <div style="margin-left: 10%">
         <div style="margin-top: 1%">
                 <form class="layui-form" >
                     <div class="layui-form-item">
@@ -199,21 +199,27 @@
         //列表
         table.render({
             elem: '#demo' //指定原始表格元素选择器（推荐id选择器）//容器高度
-            ,width: 960
+            ,width: 1259
             ,page:true
             ,url:'/back/recordlistbycid?cid='+data
             ,cols: [[
                 {field:'id',title:'ID',width:'50'}
-                ,{field:'cid',title:'顾客id',width:'100'}
-                ,{field:'cname',title:'顾客姓名',width:'100'}
+                ,{field:'cid',title:'顾客id',width:'50'}
+                ,{field:'cname',title:'顾客姓名',width:'80'}
+                ,{field:'rphone',title:'手机号',width:'150'}
                 ,{field:'rnumber',title:'房间号',width:'100'}
-                ,{field:'checkindate',title:'入住日期',width:'150',sort: true,templet : "<div>{{layui.util.toDateString(d.checkindate, 'yyyy-MM-dd')}}</div>"}
-                ,{field:'checkoutdate',title:'退房日期',width:'150',templet : "<div>{{layui.util.toDateString(d.checkoutdate, 'yyyy-MM-dd')}}</div>"}
+                ,{field:'checkindate',title:'入住日期',width:'110',templet : "<div>{{layui.util.toDateString(d.checkindate, 'yyyy-MM-dd')}}</div>"}
+                ,{field:'checkoutdate',title:'退房日期',width:'110',templet : "<div>{{layui.util.toDateString(d.checkoutdate, 'yyyy-MM-dd')}}</div>"}
+                ,{field:'checkin',title:'是否入住',width:'50',templet:function (d) {
+                        return  d.checkin?"是":"否";
+                    }}
                 ,{field:'useable',title:'是否退房',width:'100'
                     ,templet:function (d) {
                         return  d.useable?"未退":"已退";
                     }
                 }
+                ,{field:'price',title:'房间单价',width:'100'}
+                ,{field:'ordernumber',title:'订单号',width:'150'}
                 ,{fixed: 'right', width:200, align:'center', toolbar: '#barDemo'}
             ] ]//设置表头
             //,…… //更多参数参考右侧目录：基本参数选项
@@ -230,10 +236,10 @@
                 layer.confirm('要退订房间号'+data.rnumber+"的房间吗？",{icon:3,title:'提示'},function (index) {
 
                     $.ajax({
-                        url:'/back/delrecord'
+                        url:'/back/Unsubscribe'
                         ,type:'post'
                         ,dataType:"json"
-                        ,data:{'id':data.id}
+                        ,data:{'id':data.id,'ordernumber':data.ordernumber}
                         ,success:function(res){
 
                             if(res["flag"]==true){

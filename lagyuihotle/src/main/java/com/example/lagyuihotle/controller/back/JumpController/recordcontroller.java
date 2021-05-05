@@ -1,8 +1,10 @@
 package com.example.lagyuihotle.controller.back.JumpController;
 
 import com.alibaba.fastjson.JSONObject;
+import com.alipay.api.AlipayApiException;
 import com.example.lagyuihotle.pojo.entity.Record;
 import com.example.lagyuihotle.service.RecordService;
+import com.example.lagyuihotle.service.RefundService;
 import com.example.lagyuihotle.service.RoomdataService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -25,6 +27,8 @@ public class recordcontroller {
     RecordService recordService;
     @Resource
     RoomdataService roomdataService;
+    @Resource
+    RefundService refundService;
 
     @RequestMapping("/back/record")
     String record(){
@@ -91,6 +95,22 @@ public class recordcontroller {
     @RequestMapping("/back/delrecord")
     @ResponseBody
     String delrecod(int id){
+        int flag  =  recordService.delrecord(id);
+        JSONObject json = new JSONObject();
+        json.put("flag",flag);
+        return json.toString();
+    }
+
+    /**
+     * 退订
+     * @param id
+     * @param ordernumber
+     * @return
+     */
+    @RequestMapping("/back/Unsubscribe")
+    @ResponseBody
+    String Unsubscribe(int id,String ordernumber)throws AlipayApiException {
+        Object object = refundService.refund(ordernumber);
         int flag  =  recordService.delrecord(id);
         JSONObject json = new JSONObject();
         json.put("flag",flag);

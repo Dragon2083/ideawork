@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -27,7 +28,7 @@ public class PayService {
     }
     //支付宝支付确认付款跳转页面
     @RequestMapping("/order/confrim")
-    public  void oderConfirm(HttpServletRequest request, HttpServletResponse response) {
+    public  void oderConfirm(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 //虚拟一个订单，将其信息定义如下
         String title = "支付订单";
         String total = "1200";
@@ -49,6 +50,7 @@ public class PayService {
         alipayRequest.setNotifyUrl(AlipayConfig.notify_url);
         //商户订单号，商户网站订单系统中唯一订单号，必填
         String out_trade_no = orderSn;
+        session.setAttribute("orderSn",out_trade_no);//存订单号
         //付款金额，必填
         String total_amount = total;
         //订单名称，必填

@@ -111,6 +111,8 @@ public class frontcontroller {
                 record.setRnumber(room.getRname());
                 record.setCid(cus.getCid());
                 record.setCname(cus.getCname());
+                record.setRphone(cus.getCphone());
+                record.setPrice(room.getRprice());
                 session.setAttribute("record",record);
                 //flag = recordService.addrecord(record);
                 json.put("flag",1);
@@ -143,6 +145,7 @@ public class frontcontroller {
    String reservation(HttpSession session){
 
        Record record = (Record) session.getAttribute("record");
+       record.setOrdernumber((String)session.getAttribute("orderSn"));
        recordService.addrecord(record);
        return "redirect:/record";
    }
