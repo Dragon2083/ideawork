@@ -3,6 +3,7 @@ package com.example.lagyuihotle.controller.back.JumpController;
 import com.alibaba.fastjson.JSONObject;
 import com.alipay.api.AlipayApiException;
 import com.example.lagyuihotle.pojo.entity.Record;
+import com.example.lagyuihotle.pojo.entity.Roomdata;
 import com.example.lagyuihotle.service.RecordService;
 import com.example.lagyuihotle.service.RefundService;
 import com.example.lagyuihotle.service.RoomdataService;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
 
@@ -102,6 +104,49 @@ public class recordcontroller {
     }
 
     /**
+     * 开房登记
+     * @return
+     */
+    @RequestMapping("/back/reservation")
+    String reservation(){
+        return "/back/reservation";
+    }
+
+    @RequestMapping("/back/reserve")
+    @ResponseBody
+    String reserve(Record record, int rtype, HttpSession session){
+        Roomdata room;
+        int flag;
+        JSONObject json=new JSONObject();
+        List<Roomdata> list = roomdataService.reserveroom(rtype);
+        if(list.size()!=0){
+            room = list.get(0);
+            record.setRnumber(room.getRname());
+            record.setPrice(room.getRprice());
+            //session.setAttribute("backrecord",record);
+            flag = recordService.addrecord(record);
+            json.put("flag",1);
+            json.put("roomnumber",room.getRname());
+            return json.toString();
+        }else {
+            List<Roomdata> reslist =roomdataService.reservroomrecord(rtype,record);
+            if(reslist.size()==0){
+                json.put("flag",2);
+                return json.toString();
+            }else {
+                room = reslist.get(0);
+                record.setRnumber(room.getRname());
+                record.setPrice(room.getRprice());
+               // session.setAttribute("backrecord", record);
+                flag = recordService.addrecord(record);
+                json.put("roomnumber", room.getRname());
+                json.put("flag", flag);
+                return json.toString();
+            }
+        }
+    }
+
+    /**
      * 退订
      * @param id
      * @param ordernumber
@@ -117,15 +162,60 @@ public class recordcontroller {
         return json.toString();
     }
 
-    @RequestMapping("/recordshow")
+    /**
+     * 办理入住
+     * @param id
+     * @param rnumber
+     * @return
+     */
+    @RequestMapping("/back/verifycheckin")
     @ResponseBody
     String recordshow(int id,int rnumber) {
-        int time = recordService.selectprice(id)+1;
-        int price = roomdataService.selectpricebyrname(rnumber);
-        int  sum= time*price;
+        Record record = new Record();
+        record.setId(id);
+        record.setCheckin(1);
+        Roomdata roomdata = roomdataService.selectpricebyrname(rnumber);
+        roomdata.setRstate("入住");
+        int res = recordService.updaterecord(record);
+        int flag = roomdataService.roomupdate(roomdata);
         JSONObject json = new JSONObject();
-        json.put("price",sum);
+        json.put("flag",flag);
         return json.toString();
+    }
+
+    /**
+     * 办理退房
+     */
+    @RequestMapping("/back/verifycheckout")
+    @ResponseBody
+    String verifycheckou(int id,int rnumber) {
+        Record record = new Record();
+        record.setId(id);
+        record.setUseable(0);
+        Roomdata roomdata = roomdataService.selectpricebyrname(rnumber);
+        roomdata.setRstate("待清洁");
+        int res = recordService.updaterecord(record);
+        int flag = roomdataService.roomupdate(roomdata);
+        JSONObject json = new JSONObject();
+        json.put("flag",flag);
+        return json.toString();
+    }
+
+
+    /**
+     *办理入住
+     */
+    @RequestMapping("/back/checkin")
+    String checkin(){
+        return  "/back/checkin";
+    }
+
+    /**
+     * 办理退房
+     */
+    @RequestMapping("/back/checkout")
+    String checkout(){
+        return "/back/checkout";
     }
 
 }

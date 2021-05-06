@@ -51,14 +51,15 @@
   <select id="selectreservation" resultType="com.example.lagyuihotle.pojo.entity.Roomdata">
     SELECT DISTINCT <include refid="Base_Column_List" /> FROM record,roomdata WHERE roomdata.rname = ANY(SELECT record.rnumber FROM record WHERE record.useable = 1 AND (record.checkindate > #{rec.checkoutdate,jdbcType=TIMESTAMP} or #{rec.checkindate,jdbcType=TIMESTAMP} > record.checkoutdate  )) AND roomdata.rtype = #{rtype,jdbcType=INTEGER} AND roomdata.rstate = '可用';
   </select>
-    <select id="selectpricebyrname" resultType="java.lang.Integer">
-      select rprice from roomdata where rname = #{rname,jdbcType=INTEGER}
-    </select>
+
     <select id="roombystate" resultType="com.example.lagyuihotle.pojo.entity.Roomdata">
       select
       <include refid="Base_Column_List" />
       from roomdata where rstate != '可用'
     </select>
+  <select id="selectpricebyrname" resultType="com.example.lagyuihotle.pojo.entity.Roomdata">
+      select <include refid="Base_Column_List" /> from roomdata where rname = #{rname,jdbcType=INTEGER}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from roomdata
     where roomid = #{roomid,jdbcType=INTEGER}

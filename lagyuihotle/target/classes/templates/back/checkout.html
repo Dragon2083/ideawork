@@ -21,9 +21,6 @@
 
 		</div>
 	</div>
-
-	<!--list-->
-	<button type="button" class="layui-btn layui-btn-normal" onclick="insertroom()" style="margin-left: 20px;margin-top: 20px" >添加房间</button>
 	<!--搜索-->
 	<div style="margin-top: 1%">
 		<form class="layui-form" >
@@ -41,17 +38,6 @@
 						<input type="text" name="rnumber"  placeholder="输入房间号"  class="layui-input">
 					</div>
 				</div>
-
-				<div class="layui-inline">
-					<label class="layui-form-label">是否退房</label>
-					<div class="layui-input-block" style="width:200px">
-						<select name="useable" lay-filter="required">
-							<option></option>
-							<option value=0 >已退</option>
-							<option value=1 >未退</option>
-						</select>
-					</div>
-				</div>
 				<div class="layui-inline">
 					<button type="button" class="layui-btn layui-bg-red" lay-submit lay-filter="recordsearch">
 						<i class="layui-icon layui-icon-search" style="font-size: 30px; color:white;" ></i>
@@ -60,13 +46,12 @@
 			</div>
 		</form>
 	</div>
-
+    <!--list-->
 	<div style="margin-left: 2%">
 	<table id="demo" name="roomlist" lay-filter="rooms"></table>
 	</div>
 	<script type="text/html" id="barDemo">
-		<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">退房</a>
 	</script>
 	<script th:src="@{/layui/layui.js}" charset="utf-8"></script>
 	<script>
@@ -95,15 +80,15 @@
 					var form = layui.form;
 					table.render({
 						elem: '#demo' //指定原始表格元素选择器（推荐id选择器）							//容器高度
-						,width: 1312
+						,width: 1165
 						,page:true
-						,url:'/back/recordlist'
+						,url:'/back/recordlist?useable=1&&checkin=1'
 						,cols: [[
 							 {field:'id',title:'ID',width:'50'}
 							,{field:'cid',title:'顾客id',width:'80'}
 							,{field:'cname',title:'顾客姓名',width:'100'}
-							,{field:'rphone',title:'手机号',width:'150'}
-							,{field:'rnumber',title:'房间号',width:'100'}
+							,{field:'rphone',title:'手机号',width:'120'}
+							,{field:'rnumber',title:'房间号',width:'80'}
 							,{field:'checkindate',title:'入住日期',width:'110',templet : "<div>{{layui.util.toDateString(d.checkindate, 'yyyy-MM-dd')}}</div>"}
 							,{field:'checkoutdate',title:'退房日期',width:'110',templet : "<div>{{layui.util.toDateString(d.checkoutdate, 'yyyy-MM-dd')}}</div>"}
 							,{field:'checkin',title:'是否入住',width:'100',templet:function (d) {
@@ -116,7 +101,7 @@
 							}
 							,{field:'price',title:'房间单价',width:'100'}
 							,{field:'ordernumber',title:'订单号',width:'100'}
-							,{fixed: 'right', width:200, align:'center', toolbar: '#barDemo'}
+							,{fixed: 'right', width:100, align:'center', toolbar: '#barDemo'}
 						] ]//设置表头
 						//,…… //更多参数参考右侧目录：基本参数选项
 					});
@@ -127,43 +112,27 @@
 					    var layEvenT = obj.event;
 					    var tr = obj.tr;
 
-					    if(layEvenT === 'del'){
-					        layer.confirm('要删除ID为'+data.id+"的开房记录吗？",{icon:3,title:'提示'},function (index) {
-					            $.ajax({
-                                   url:'/back/delrecord'
-                                   ,type:'post'
-									,dataType:"json"
-                                   ,data:{'id':data.id}
-                                   ,success:function(res){
-                                       if(res["flag"]==true){
-                                           obj.del();//删除对应行tr的dom结构，并更新缓
-                                           layer.msg("删除成功",{iocn:1});
-                                       }else{
-                                           layer.msg("删除失败",{icon:5});
-                                       }
-                                }
-                                });
-					            layer.close(index);
-                            });
-                        }else if(layEvenT === 'edit'){
-					    	layui.sessionData("roomlist",{
-					    		key:'roomdata'
-								,value:data
-							});
+						var time = parseInt((data.checkoutdate-data.checkindate)/86400000)+1;
+						var price = Math.round(time*data.price);
 
-							layer.open({
-								type: 2,
-								title: "修改",
-								area:['100%','100%'],
-								shade:0.2,
-								fixed: false, //不固定
-								maxmin: true,
-								maxmin: false,
-								shadeClose:true,
-								content:'/back/editrecord',
-								end:function() {
-									location.reload();
-								}
+                        if(layEvenT === 'del'){
+
+							layer.confirm('当前顾客房费为'+price+'。是否退房？',{icon:3,title:'提示'},function (index) {
+								$.ajax({
+									url: "/back/verifycheckout",
+									data: data,
+									type: 'post',
+									dataType: 'json',
+									success: function (res) {//请求成功，回调函数，data.
+										if(res["flag"]){
+											obj.del();
+											layer.msg("退房成功",{iocn:1});
+										}else{
+											layer.msg("退房成功",{iocn:1});
+										}
+									},
+								});
+								layer.close(index);
 							});
 						}
                     });

@@ -103,7 +103,6 @@ public class frontcontroller {
        JSONObject json=new JSONObject();
         if(session.getAttribute("flogin")!=null){
             Roomdata room;
-            int flag;
             List<Roomdata> list = roomdataService.reserveroom(rtype);
             Customerdata cus = (Customerdata) session.getAttribute("flogin");
             if(list.size()!=0){
@@ -128,6 +127,7 @@ public class frontcontroller {
                     record.setRnumber(room.getRname());
                     record.setCid(cus.getCid());
                     record.setCname(cus.getCname());
+                    record.setPrice(room.getRprice());
                     session.setAttribute("record",record);
                     //flag = recordService.addrecord(record);
                     json.put("roomnumber",room.getRname());

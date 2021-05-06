@@ -26,6 +26,7 @@
 							<select name="rstate" lay-filter="required" id="state">
 								<option></option>
 								<option value="可用">可用</option>
+								<option value="入住">入住</option>
 								<option value="停用">停用</option>
 								<option value="待维修">待维修</option>
 								<option value="待清洁">待清洁</option>
@@ -111,7 +112,6 @@
 						] ]//设置表头
 						//,…… //更多参数参考右侧目录：基本参数选项
 					});
-
 					table.on('tool(rooms)',function (obj) {
 
 					    var data =obj.data;
@@ -120,7 +120,6 @@
 
 					    if(layEvenT === 'del'){
 					        layer.confirm('要删除房间号为'+data.rname+"的房间吗？",{icon:3,title:'提示'},function (index) {
-
 					            $.ajax({
                                    url:'/back/roomdel'
                                    ,type:'post'
@@ -144,8 +143,6 @@
 					    		key:'roomdata'
 								,value:data
 							});
-
-
 							layer.open({
 								type: 2,
 								title: "编辑",
@@ -171,12 +168,7 @@
 						});
 						return false;
 					});
-
 				});
-
-
-
 	</script>
 	</body>
-
 </html>

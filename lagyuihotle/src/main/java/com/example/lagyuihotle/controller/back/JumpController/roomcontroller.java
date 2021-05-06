@@ -1,7 +1,9 @@
 package com.example.lagyuihotle.controller.back.JumpController;
 
 import com.alibaba.fastjson.JSONObject;
+import com.example.lagyuihotle.pojo.entity.Hoteldata;
 import com.example.lagyuihotle.pojo.entity.Roomdata;
+import com.example.lagyuihotle.service.HotelService;
 import com.example.lagyuihotle.service.RoomdataService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -21,6 +23,8 @@ public class roomcontroller {
 
     @Resource
     RoomdataService roomdataService;
+    @Resource
+    HotelService hotelService;
 
 
     /**
@@ -78,6 +82,14 @@ public class roomcontroller {
     @ResponseBody
     String roomadd(Roomdata roomdata){
 
+        Hoteldata hoteldata = hotelService.selectbyid();
+        if(roomdata.getRtype()==1){
+            roomdata.setRprice(hoteldata.getSingle());
+        }else if(roomdata.getRtype()==1){
+            roomdata.setRprice(hoteldata.getTwo());
+        }else{
+            roomdata.setRprice(hoteldata.getThree());
+        }
         int flag = roomdataService.roomadd(roomdata);
         JSONObject json = new JSONObject();
         json.put("flag",flag);

@@ -72,7 +72,7 @@ public class RoomdataServiceImpl implements RoomdataService {
     }
 
     @Override
-    public int selectpricebyrname(int rname) {
+    public Roomdata selectpricebyrname(int rname) {
         return roomdataDao.selectpricebyrname(rname);
     }
 

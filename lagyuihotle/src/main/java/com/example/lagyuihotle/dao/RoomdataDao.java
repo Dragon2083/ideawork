@@ -33,6 +33,6 @@ public interface RoomdataDao {
 
     List<Roomdata> roombystate();
 
-    int selectpricebyrname(int rname);
+    Roomdata selectpricebyrname(int rname);
 
 }

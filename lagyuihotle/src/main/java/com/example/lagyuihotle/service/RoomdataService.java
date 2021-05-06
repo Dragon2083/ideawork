@@ -32,5 +32,5 @@ public interface RoomdataService {
 
     List<Roomdata> roombystate(); //首页的当前要处理的房间
 
-    int selectpricebyrname(int rname);
+    Roomdata selectpricebyrname(int rname);
 }

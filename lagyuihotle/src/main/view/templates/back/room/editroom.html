@@ -44,6 +44,7 @@
 			<div class="layui-input-block" style="width:200px">
 				<select name="rstate" lay-filter="required">
 					<option value="可用" selected="">可用</option>
+					<option value="入住">入住</option>
 					<option value="停用" >停用</option>
 					<option value="待维修">待维修</option>
 					<option value="待清洁">待清洁</option>
@@ -78,9 +79,6 @@
 						, success: function (res) {
 							if (res["flag"]) {
 								layer.msg("修改成功", {iocn: 1});
-								//layer.alert('修改成功', {icon: 1});
-								//window.parent.layer.closeAll();
-
 							} else {
 								layer.msg("修改失败", {icon: 5});
 							}

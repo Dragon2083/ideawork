@@ -40,6 +40,11 @@
       <if test="useable!=null">
         and useable = #{useable,jdbcType=INTEGER}
       </if>
+
+      <if test="checkin!=null">
+        and checkin = #{checkin,jdbcType=INTEGER}
+      </if>
+
     </where>
   </select>
   <select id="selectprice" resultType="java.lang.Integer">

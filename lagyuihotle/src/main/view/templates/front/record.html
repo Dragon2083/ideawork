@@ -233,23 +233,30 @@
             var tr = obj.tr;
 
             if(layEvenT === 'del'){
+                console.log(data.checkindate);
+                var myDate = new Date();
+                console.log(myDate.getTime());
                 layer.confirm('要退订房间号'+data.rnumber+"的房间吗？",{icon:3,title:'提示'},function (index) {
+                    if(myDate.getTime()<data.checkindate){
+                        $.ajax({
+                            url:'/back/Unsubscribe'
+                            ,type:'post'
+                            ,dataType:"json"
+                            ,data:{'id':data.id,'ordernumber':data.ordernumber}
+                            ,success:function(res){
 
-                    $.ajax({
-                        url:'/back/Unsubscribe'
-                        ,type:'post'
-                        ,dataType:"json"
-                        ,data:{'id':data.id,'ordernumber':data.ordernumber}
-                        ,success:function(res){
-
-                            if(res["flag"]==true){
-                                obj.del();//删除对应行tr的dom结构，并更新缓
-                                layer.msg("退订成功",{iocn:1});
-                            }else{
-                                layer.msg("退订失败",{icon:5});
+                                if(res["flag"]==true){
+                                    obj.del();//删除对应行tr的dom结构，并更新缓
+                                    layer.msg("退订成功",{iocn:1});
+                                }else{
+                                    layer.msg("退订失败",{icon:5});
+                                }
                             }
-                        }
-                    });
+                        });
+                    }else {
+                        layer.msg("订单时效已过，如有其他问题请联系宾馆工作人员",{icon:5});
+                    }
+
                     layer.close(index);
                 });
             }
