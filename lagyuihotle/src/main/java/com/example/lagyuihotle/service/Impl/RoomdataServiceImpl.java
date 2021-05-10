@@ -76,5 +76,10 @@ public class RoomdataServiceImpl implements RoomdataService {
         return roomdataDao.selectpricebyrname(rname);
     }
 
+    @Override
+    public int countbyrtype(int rtype) {
+        return roomdataDao.countbyrtype(rtype);
+    }
+
 
 }

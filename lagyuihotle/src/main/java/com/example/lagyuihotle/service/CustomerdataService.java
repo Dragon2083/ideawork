@@ -26,4 +26,6 @@ public interface CustomerdataService {
 
     int addcustomer(Customerdata customerdata);
 
+    int countgender(String sex);
+
 }

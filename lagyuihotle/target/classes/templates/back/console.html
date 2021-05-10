@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
-  <title>layuiAdmin 控制台主页一</title>
+  <title>主页</title>
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -27,7 +27,7 @@
                 <div class="layui-carousel layadmin-carousel layadmin-shortcut">
                   <div carousel-item>
                     <ul class="layui-row layui-col-space10">
-                      <li class="layui-col-xs3">
+                      <li th:if ="${session.login.category==1}" class="layui-col-xs3">
                         <a th:lay-href="@{/back/user/list}">
                           <i class="layui-icon layui-icon-user"></i>
                           <cite>用户</cite>
@@ -39,7 +39,7 @@
                           <cite>房间</cite>
                         </a>
                       </li>
-                      <li class="layui-col-xs3">
+                      <li th:if ="${session.login.category==1}" class="layui-col-xs3">
                         <a th:lay-href="@{/pieroom}">
                           <i class="layui-icon layui-icon-chart"></i>
                           <cite>数据统计</cite>
@@ -51,7 +51,7 @@
                           <cite>房间记录</cite>
                         </a>
                       </li>
-                      <li class="layui-col-xs3">
+                      <li th:if ="${session.login.category==1}" class="layui-col-xs3">
                         <a th:lay-href="@{/back/customer}">
                           <i class="layui-icon layui-icon-survey"></i>
                           <cite>顾客信息</cite>
@@ -106,7 +106,7 @@
               <div class="layui-tab layui-tab-brief layadmin-latestData">
                 <ul class="layui-tab-title">
                   <li class="layui-this">今日入住</li>
-                  <li>今日热帖</li>
+                  <li>待处理房间</li>
                 </ul>
                 <div class="layui-tab-content">
                   <div class="layui-tab-item layui-show">
@@ -118,7 +118,7 @@
                 </div>
               </div>
             </div>
-            <div class="layui-card">
+           <!-- <div class="layui-card">
               <div class="layui-card-header">数据概览</div>
               <div class="layui-card-body">
                 <div class="layui-carousel layadmin-carousel layadmin-dataview" data-anim="fade" lay-filter="LAY-index-dataview">
@@ -130,7 +130,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -197,47 +197,6 @@
       //,…… //更多参数参考右侧目录：基本参数选项
     });
   });
-  </script>
-  <script th:inline="javascript" >
-      // 基于准备好的dom，初始化echarts实例
-      var chartDom = document.getElementById('roomstate');
-      var myChart = echarts.init(chartDom);
-      // 指定图表的配置项和数据
-      var option = {
-          title: {
-              text: '房间状态统计饼图',
-              //subtext: '',
-              left: 'center'
-          },
-          tooltip: {
-              trigger: 'item'
-          },
-          legend: {
-              orient: 'vertical',
-              left: 'left',
-          },
-          series: [
-              {
-                  type: 'pie',
-                  radius: '50%',
-                  data: [
-                      {value:50, name: '可用'},
-                      {value: 20, name: '停用'},
-                      {value: 60, name: '待维修'},
-                      {value:70, name:"待清洁"}
-                  ],
-                  emphasis: {
-                      itemStyle: {
-                          shadowBlur: 10,
-                          shadowOffsetX: 0,
-                          shadowColor: 'rgba(0, 0, 0, 0.5)'
-                      }
-                  }
-              }
-          ]
-      };
-      // 使用刚指定的配置项和数据显示图表。
-      myChart.setOption(option);
   </script>
 </body>
 </html>

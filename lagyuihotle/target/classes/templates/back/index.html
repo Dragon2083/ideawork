@@ -88,22 +88,22 @@
                             <cite>主页</cite>
                         </a>
                         <dl class="layui-nav-child">
-                            <dd data-name="console">
+                            <dd th:if ="${session.login.category==1}" data-name="console">
                                 <a th:lay-href="@{/back/user/list}">用户信息</a>
                             </dd>
                             <dd data-name="console">
                                 <a th:lay-href="@{/back/room}">房间信息</a>
                             </dd>
-                            <dd data-name="console">
+                            <dd th:if ="${session.login.category==1}" data-name="console">
                                 <a th:lay-href="@{/pieroom}">数据统计</a>
                             </dd>
-                            <dd data-name="console">
+                            <dd th:if ="${session.login.category==1}" data-name="console">
                                 <a th:lay-href="@{/back/customer}">顾客信息</a>
                             </dd>
                             <dd data-name="console">
                                 <a th:lay-href="@{/back/record}">开房记录</a>
                             </dd>
-                            <dd data-name="console">
+                            <dd th:if ="${session.login.category==1}" data-name="console">
                                 <a th:lay-href="@{/back/hoteldata}">主页信息</a>
                             </dd>
                             <dd data-name="console">

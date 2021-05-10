@@ -219,7 +219,7 @@
                     }
                 }
                 ,{field:'price',title:'房间单价',width:'100'}
-                ,{field:'ordernumber',title:'订单号',width:'150'}
+                ,{field:'ordernumber',title:'订单号',width:'150', sort: true}
                 ,{fixed: 'right', width:200, align:'center', toolbar: '#barDemo'}
             ] ]//设置表头
             //,…… //更多参数参考右侧目录：基本参数选项
@@ -244,7 +244,6 @@
                             ,dataType:"json"
                             ,data:{'id':data.id,'ordernumber':data.ordernumber}
                             ,success:function(res){
-
                                 if(res["flag"]==true){
                                     obj.del();//删除对应行tr的dom结构，并更新缓
                                     layer.msg("退订成功",{iocn:1});

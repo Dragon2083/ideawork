@@ -33,4 +33,6 @@ public interface RoomdataService {
     List<Roomdata> roombystate(); //首页的当前要处理的房间
 
     Roomdata selectpricebyrname(int rname);
+
+    int countbyrtype(int rtype); //通过类型统计房间个数
 }

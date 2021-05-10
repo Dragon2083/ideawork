@@ -65,5 +65,10 @@ public class CustomerdataServiceImpl implements CustomerdataService {
         return customerdataDao.insertSelective(customerdata);
     }
 
+    @Override
+    public int countgender(String sex) {
+        return customerdataDao.countgender(sex);
+    }
+
 
 }

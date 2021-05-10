@@ -31,7 +31,7 @@ public class PayService {
     public  void oderConfirm(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 //虚拟一个订单，将其信息定义如下
         String title = "支付订单";
-        String total = "1200";
+        String total = "200";
         String message = "备注";
         //生成订单号
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmss");

@@ -35,4 +35,5 @@ public interface RoomdataDao {
 
     Roomdata selectpricebyrname(int rname);
 
+    int countbyrtype(int rtype);
 }

@@ -45,6 +45,9 @@
       from customerdata
       where account = #{account,jdbcType=VARCHAR}
     </select>
+    <select id="countgender" resultType="java.lang.Integer">
+      select  count(*) from customerdata where gender = #{gender}
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from customerdata
     where cid = #{cid,jdbcType=INTEGER}

@@ -60,7 +60,10 @@
   <select id="selectpricebyrname" resultType="com.example.lagyuihotle.pojo.entity.Roomdata">
       select <include refid="Base_Column_List" /> from roomdata where rname = #{rname,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <select id="countbyrtype" resultType="java.lang.Integer">
+      select  count(*) from roomdata  where rtype = #{rtype}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from roomdata
     where roomid = #{roomid,jdbcType=INTEGER}
   </delete>

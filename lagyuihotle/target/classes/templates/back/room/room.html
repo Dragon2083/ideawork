@@ -8,7 +8,7 @@
 	</head>
 
 	<body>
-	<button type="button" class="layui-btn layui-btn-normal" onclick="insertroom()" style="margin-left: 20px;margin-top: 20px" >添加房间</button>
+	<button th:if ="${session.login.category==1}" type="button" class="layui-btn layui-btn-normal" onclick="insertroom()" style="margin-left: 20px;margin-top: 20px" >添加房间</button>
 
 	<div style="margin-top: 1%">
 		<form class="layui-form" >
@@ -59,7 +59,7 @@
 	</div>
 	<script type="text/html" id="barDemo">
 		<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+		<a th:if ="${session.login.category==1}" class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 	</script>
 	<script th:src="@{/layui/layui.js}" charset="utf-8"></script>
 	<script>

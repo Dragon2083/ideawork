@@ -20,4 +20,6 @@ public interface CustomerdataDao {
     int updateByPrimaryKey(Customerdata record);
 
     List<Customerdata> allcustomer(Customerdata customerdata);
+
+    int countgender(String gender);
 }

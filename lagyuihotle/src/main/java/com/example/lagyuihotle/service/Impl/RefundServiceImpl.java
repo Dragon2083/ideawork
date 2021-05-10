@@ -34,7 +34,7 @@ public class RefundServiceImpl implements RefundService {
         //商户订单号，后台可以写一个工具类生成一个订单号，必填
         String out_trade_no = new String(ordernumber);
         //付款金额，从前台获取，必填
-        String refund_amount = new String("1200");
+        String refund_amount = new String("200");
         //标识一次退款请求，同一笔交易多次退款需要保证唯一。如需部分退款，则此参数必传；不传该参数则代表全额退款
         String out_request_no = new String(UUID.randomUUID().toString());
         //订单名称/标题，可自定义
